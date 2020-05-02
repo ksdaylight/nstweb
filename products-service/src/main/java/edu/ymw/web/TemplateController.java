@@ -11,6 +11,7 @@ public class TemplateController{
     @Autowired TemplateService tempService;
     @GetMapping("/templates")
     @CrossOrigin
+    //请求跨域
     public List<Template> list() throws Exception{
        return tempService.list();
     }
