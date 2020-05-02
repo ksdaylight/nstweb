@@ -14,12 +14,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="common" target="1.7" />
+      <module name="common" target="1.8" />
       <module name="eureka-server" target="1.8" />
       <module name="nstweb" target="1.8" />
-      <module name="products-service" target="1.7" />
-      <module name="view-service" target="1.7" />
-      <module name="zuul-service" target="1.7" />
+      <module name="products-service" target="1.8" />
+      <module name="view-service" target="1.8" />
+      <module name="zuul-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
