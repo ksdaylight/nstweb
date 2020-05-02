@@ -28,6 +28,8 @@ public class Test2 {
     }
     @Test
     public void test2(){
+        int  a = 0;
+        int b = 3/0;
         System.out.println("asgsadg");
     }
 

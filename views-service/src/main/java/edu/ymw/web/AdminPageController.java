@@ -19,7 +19,7 @@ public class AdminPageController {
     }
     @GetMapping(value="/test")
     @CrossOrigin
-    public  String test(){
+    public  String test() throws Exception{
         return  "test 测试controller";
 
     }

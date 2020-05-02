@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class GloabalExceptionHandler {
-
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(GloabalExceptionHandler.class);
     @ExceptionHandler(value = Exception.class)
     public String defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
@@ -19,5 +18,6 @@ public class GloabalExceptionHandler {
         }
         log.error("违反了约束，多半是外键约束");
         return e.getMessage();
+
     }
 }
