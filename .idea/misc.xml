@@ -10,6 +10,8 @@
       <set>
         <option value="$PROJECT_DIR$/product-service/pom.xml" />
         <option value="$PROJECT_DIR$/testChildProject/pom.xml" />
+        <option value="$PROJECT_DIR$/view-service/pom.xml" />
+        <option value="$PROJECT_DIR$/viewservice/pom.xml" />
       </set>
     </option>
   </component>
