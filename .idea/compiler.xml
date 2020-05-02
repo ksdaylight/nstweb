@@ -8,15 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
         <module name="eureka-server" />
-        <module name="product-service" />
+        <module name="products-service" />
+        <module name="view-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="common" target="1.7" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="common" target="1.8" />
       <module name="eureka-server" target="1.8" />
       <module name="nstweb" target="1.8" />
-      <module name="product-service" target="1.7" />
-      <module name="testChildProject" target="1.7" />
+      <module name="products-service" target="1.8" />
+      <module name="view-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -10,6 +10,5 @@ eureka:
 spring:
   application:
     name: eureka-server
-  logging:
-      config: classpath:log4j2.xml
+
 
