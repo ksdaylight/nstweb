@@ -8,6 +8,7 @@
         <module>common</module>
         <module>view-service</module>
         <module>products-service</module>
+        <module>zuul-service</module>
     </modules>
 
     <packaging>pom</packaging>

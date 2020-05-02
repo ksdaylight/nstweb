@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/nstweb.iml" filepath="$PROJECT_DIR$/nstweb.iml" />
       <module fileurl="file://$PROJECT_DIR$/products-service/products-service.iml" filepath="$PROJECT_DIR$/products-service/products-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/view-service/view-service.iml" filepath="$PROJECT_DIR$/view-service/view-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zuul-service/zuul-service.iml" filepath="$PROJECT_DIR$/zuul-service/zuul-service.iml" />
     </modules>
   </component>
 </project>
