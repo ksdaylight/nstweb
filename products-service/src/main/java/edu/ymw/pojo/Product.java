@@ -46,6 +46,9 @@ public class Product {
     @Transient
     private String statusDesc;
 
+    public void setStatusDesc(String statusDesc) {
+        this.statusDesc = statusDesc;
+    }
     public String getStatusDesc(){
         if(null!=statusDesc)
             return statusDesc;
