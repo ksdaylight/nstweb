@@ -54,5 +54,10 @@ public class TemplateService {
         log.info("找到了模组");
         return t;
     }
+    @CacheEvict(allEntries=true)
+    public void update(Template bean) {
+        log.info("service 这里的bean"+bean.toString());
+        templateDao.save(bean);
+    }
 
 }

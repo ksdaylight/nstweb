@@ -50,6 +50,7 @@ public class TemplateController{
         ImageIO.write(img, "jpg", file);
     }
     @DeleteMapping("/templates/{id}")
+    @CrossOrigin
     public String delete(@PathVariable("id") int id, HttpServletRequest request)  throws Exception {
         tempService.delete(id);
         File  imageFolder= new File("G:\\\\project\\\\nstweb\\\\views-service\\src\\main\\webapp\\img\\template\\");
@@ -58,8 +59,24 @@ public class TemplateController{
         return null;
     }
     @GetMapping("/templates/{id}")
+    @CrossOrigin
     public Template get(@PathVariable("id") int id) throws Exception {
         Template bean=tempService.get(id);
+        return bean;
+    }
+    @PostMapping ("/templates/{id}")
+    @CrossOrigin
+    public Object update(MultipartFile image,Template bean ,HttpServletRequest request) throws Exception {
+//        String name = request.getParameter("name");  //bean注入不了只能用这样
+//        log.info("传过来的name"+name);
+//        bean.setName(name);
+        log.info("传过来的name"+request.getParameter("name"));
+        log.info("传过来的bean"+bean.toString());
+        tempService.update(bean);
+
+        if(image!=null) {
+            saveOrUpdateImageFile(bean, image, request);
+        }
         return bean;
     }
 
