@@ -31,6 +31,10 @@
                         vue.beans = response.data.content	;
                     });
                 },
+                showDetails: function(product){
+                    var id = product.id;
+                    $("#ProdutDetails"+id).show();///------
+                },
                 jump: function(page){
                     jump(page,vue); //定义在adminHeader.html 中
                 },
@@ -76,10 +80,12 @@
                 <th>风格化力度</th>
                 <th>风格化尺度</th>
                 <th>颜色保留</th>
+                <th>查看详情</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="bean in beans ">
+            <template v-for="bean in beans ">
+            <tr>
                 <td>{{bean.id}}</td>
                 <td>{{bean.user.name}}</td>
                 <td>{{bean.title}}</td>
@@ -91,7 +97,45 @@
                 <td>{{bean.scale}}</td>
                 <td>{{bean.weight}}</td>
                 <td>{{bean.color}}</td>
+                <td><button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button></td>
             </tr>
+            <tr class="orderPageOrderItemTR"  :id="'ProdutDetails'+bean.id">
+                <!--注意这里的行数更上面对应-->
+                <td colspan="12" align="center">
+                    <div  class="orderPageOrderItem">
+                        <table width="800px" align="center" class="orderPageOrderItemTable">
+                            <td align="right">
+                                <span>成品：</span>
+                            </td>
+                            <td align="right">
+                                <img width="40px" height="40px" :src="'img/productFinish/'+bean.id+'.jpg'">
+                            </td>
+                            <td align="right">
+                                <span>原图：</span>
+                            </td>
+                            <td align="right">
+                                <img width="40px" height="40px" :src="'img/productSource/'+bean.id+'.jpg'">
+                            </td>
+                            <td align="right">
+                                <span>使用模板：</span>
+                            </td>
+                            <td align="right">
+                                <img width="40px" height="40px" :src="'img/template/'+bean.template.id+'.jpg'">
+                            </td>
+                            <td align="right">
+                                <span>访问：</span>
+                            </td>
+                            <td align="right">
+                                <a :href="'product?product.id='+bean.id">
+                                    <span>{{bean.title}}</span>
+                                </a>
+                            </td>
+
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            </template>
             </tbody>
         </table>
     </div>
