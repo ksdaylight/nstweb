@@ -16,7 +16,7 @@ import java.util.List;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 @Service
-@CacheConfig(cacheNames="products")
+@CacheConfig(cacheNames="template")
 public class TemplateService {
  @Autowired TemplateDao templateDao;
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TemplateService.class);

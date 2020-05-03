@@ -13,7 +13,6 @@
     <artifactId>zuul-service</artifactId>
 
     <name>zuul-service</name>
-    <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
     <properties>
