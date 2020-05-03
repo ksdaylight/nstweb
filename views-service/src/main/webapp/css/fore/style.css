@@ -1292,11 +1292,12 @@ label.orderItemDeliveryLabel {
 	font-weight: normal;
 }
 
-select.orderItemDeliverySelect {
-	width: 100px;
-	height: 23px;
-}
 
+select.pageSizeSelect {
+	width: 60px;
+	height: 23px;
+	border-radius:3px;
+}
 div.orderItemSumDiv span {
 	color: #999999;
 }

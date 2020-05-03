@@ -11,7 +11,8 @@
             beans: [],
             bean: { id: 0, name: ''},
             pagination:{},
-            file: null
+            file: null,
+            size: 5
         };
 
         //ViewModel
@@ -23,7 +24,8 @@
             },
             methods: {
                 list:function(start){
-                    var url =  this.uri+ "?start="+start;
+                    var url =  this.uri+ "?start="+start+"&size="+this.size;
+                    window.console.log("开始加载数据");
                     axios.get(url).then(function(response) {
                         vue.pagination = response.data;
                         vue.beans = response.data.content	;
@@ -70,6 +72,10 @@
                 },
                 jumpByNumber: function(start){
                     jumpByNumber(start,vue);
+                },
+                setSize:  function (size) {
+                    this.size=size;
+                    vue.list(0);
                 }
             }
         });
@@ -103,7 +109,7 @@
                 </td>
                 <td>
                     <!--待改-->
-                    <a :href="'admin_product_list?cid=' + bean.id "><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    <a :href="'admin_product_list?cid=' + bean.id "><span class="glyphicon glyphicon-th-list"></span></a>
                 </td>
                 <td>
                     <a :href="'admin_template_edit?id=' + bean.id "><span class="glyphicon glyphicon-edit"></span></a>

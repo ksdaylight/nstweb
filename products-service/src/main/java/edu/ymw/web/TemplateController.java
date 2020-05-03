@@ -23,6 +23,7 @@ public class TemplateController{
     @CrossOrigin
     //请求跨域
     public Page4Navigator<Template> list(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size) throws Exception {
+        log.info("当前size为： "+size);
         start = start<0?0:start;
         Page4Navigator<Template> page =tempService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
         return page;
