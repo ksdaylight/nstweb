@@ -17,6 +17,9 @@ public class GloabalExceptionHandler {
             return "违反了约束，多半是外键约束";
         }
         log.error("违反了约束，多半是外键约束");
+        log.info("");
+        log.trace("");
+        log.debug("");
         return e.getMessage();
 
     }

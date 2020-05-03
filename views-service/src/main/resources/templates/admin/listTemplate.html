@@ -8,7 +8,10 @@
     $(function(){
         var data4Vue = {
             uri:'http://127.0.0.1:8031/api-products/templates',
-            beans: []
+            beans: [],
+            bean: { id: 0, name: ''},
+            pagination:{},
+            file: null
         };
 
         //ViewModel
@@ -16,14 +19,42 @@
             el: '#workingArea',
             data: data4Vue,
             mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
-                this.list();
+                this.list(0);
             },
             methods: {
-                list:function(){
-                    var url =  this.uri;
+                list:function(start){
+                    var url =  this.uri+ "?start="+start;
                     axios.get(url).then(function(response) {
-                        vue.beans = response.data;
+                        vue.pagination = response.data;
+                        vue.beans = response.data.content	;
                     });
+                },
+                add: function () {
+                    if(!checkEmpty(this.bean.name, "模板名称"))
+                        return;
+                    if(!checkEmpty(this.file, "模板图片"))
+                        return;
+                    var url = this.uri;
+
+                    //axios.js 上传文件要用 formData 这种方式
+                    var formData = new FormData();
+                    formData.append("image", this.file);
+                    formData.append("name", this.bean.name);
+                    axios.post(url,formData).then(function(response){
+                        vue.list(0);
+                        vue.bean = { id: 0, name: '', hp: '0'};
+                        $("#templatePic").val('');
+                        vue.file = null;
+                    });
+                },
+                getFile: function (event) {
+                    this.file = event.target.files[0];
+                },
+                jump: function(page){
+                    jump(page,vue); //定义在adminHeader.html 中
+                },
+                jumpByNumber: function(start){
+                    jumpByNumber(start,vue);
                 }
             }
         });
@@ -68,6 +99,29 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div th:replace="include/admin/adminPage::html" ></div>
+    <div class="panel panel-warning addDiv">
+        <div class="panel-heading">新增分类</div>
+        <div class="panel-body">
+            <table class="addTable">
+                <tr>
+                    <td>模板名称</td>
+                    <td><input  @keyup.enter="add" v-model.trim="bean.name" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>模板图片</td>
+                    <td>
+                        <input id="templatePic" accept="image/*" type="file" name="image" @change="getFile($event)" />
+                    </td>
+                </tr>
+                <tr class="submitTR">
+                    <td colspan="2" align="center">
+                        <a href="#nowhere"  @click="add" class="btn btn-success">提交</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <div th:replace="include/admin/adminFooter::html" ></div>
