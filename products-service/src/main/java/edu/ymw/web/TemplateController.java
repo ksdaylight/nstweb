@@ -27,7 +27,7 @@ public class TemplateController{
         Page4Navigator<Template> page =tempService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
         return page;
     }
-
+//PostMapping，REST 规范就是通过method的区别来辨别到底是获取还是增加的。
     @PostMapping("/templates")
     @CrossOrigin
     public Object add(Template bean, MultipartFile image, HttpServletRequest request) throws Exception {
@@ -49,7 +49,18 @@ public class TemplateController{
         BufferedImage img = ImageUtil.change2jpg(file);
         ImageIO.write(img, "jpg", file);
     }
-
-
+    @DeleteMapping("/templates/{id}")
+    public String delete(@PathVariable("id") int id, HttpServletRequest request)  throws Exception {
+        tempService.delete(id);
+        File  imageFolder= new File("G:\\\\project\\\\nstweb\\\\views-service\\src\\main\\webapp\\img\\template\\");
+        File file = new File(imageFolder,id+".jpg");
+        file.delete();
+        return null;
+    }
+    @GetMapping("/templates/{id}")
+    public Template get(@PathVariable("id") int id) throws Exception {
+        Template bean=tempService.get(id);
+        return bean;
+    }
 
 }

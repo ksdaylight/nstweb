@@ -47,6 +47,21 @@
                         vue.file = null;
                     });
                 },
+//                 根据 REST 规范，当删除数据后，应该返回一个空字符串，所以会判断 0!=response.data.length
+//                 当是空字符串的时候，调用 vue.list(0) 查询第一页。
+                deleteBean: function (id) {
+                    if(!checkDeleteLink())
+                        return;
+                    var url = this.uri+"/"+id;
+                    axios.delete(url).then(function(response){
+                        if(0!=response.data.length){
+                            alert(response.data);
+                        }
+                        else{
+                            vue.list(0);
+                        }
+                    });
+                },
                 getFile: function (event) {
                     this.file = event.target.files[0];
                 },
@@ -91,7 +106,7 @@
                     <a :href="'admin_product_list?cid=' + bean.id "><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 </td>
                 <td>
-                    <a :href="'admin_category_edit?id=' + bean.id "><span class="glyphicon glyphicon-edit"></span></a>
+                    <a :href="'admin_template_edit?id=' + bean.id "><span class="glyphicon glyphicon-edit"></span></a>
                 </td>
                 <td>
                     <a href="#nowhere"  @click="deleteBean(bean.id)"><span class="   glyphicon glyphicon-trash"></span></a>

@@ -41,4 +41,18 @@ public class TemplateService {
         templateDao.save(bean);
         log.trace("Dao增加成功");
     }
+    @CacheEvict(allEntries=true)
+    public void delete(int id) {
+        templateDao.deleteById(id);
+    }
+
+    @Cacheable(key="'template-one-'+ #p0")
+    public Template get(int id) {
+
+        Template t= templateDao.findById(id).orElse(null);
+        log.info("找到了模组");
+        log.info("找到了模组");
+        return t;
+    }
+
 }

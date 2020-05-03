@@ -17,15 +17,23 @@ public class AdminPageController {
     public String admin(){
         return "redirect:admin_template_list";
     }
-    @GetMapping(value="/test")
-    @CrossOrigin
-    public  String test() throws Exception{
-        return  "test 测试controller";
 
-    }
     @GetMapping(value="/admin_template_list")
     @CrossOrigin
     public String listTemplate(){
         return "admin/listTemplate";
+    }
+
+    @GetMapping(value="/admin_template_edit")
+    public String editCategory(){
+        return "admin/editTemplate";
+
+    }
+
+    @GetMapping(value="/test")
+    @CrossOrigin
+    public  String test() throws Exception{
+        return  "test 测试controller,产生500错误";
+
     }
 }
