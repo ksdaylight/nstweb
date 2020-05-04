@@ -45,6 +45,28 @@ public class Product {
 
     @Transient
     private String statusDesc;
+    @Transient
+    private  String colorRetain;
+
+    public void setColorRetain(String colorRetain) {
+        this.colorRetain = colorRetain;
+    }
+
+    public String getColorRetain() {
+        String desc = "未知";
+        switch(color){
+            case ProductService.yes :
+                desc="保留";
+                break;
+            case ProductService.no:
+                desc="未保留";
+                break;
+            default:
+                desc="未知";
+        }
+        colorRetain = desc;
+        return colorRetain;
+    }
 
     public void setStatusDesc(String statusDesc) {
         this.statusDesc = statusDesc;

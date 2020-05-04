@@ -35,6 +35,10 @@
                     var id = product.id;
                     $("#ProdutDetails"+id).show();///------
                 },
+                hideDetails: function(product){
+                    var id = product.id;
+                    $("#ProdutDetails"+id).hide();///------
+                },
                 jump: function(page){
                     jump(page,vue); //定义在adminHeader.html 中
                 },
@@ -45,6 +49,32 @@
                     this.size=size;
                     vue.list(0);
                 }
+                ,
+                pBanned:  function (id) {
+                    window.console.log('开始封禁 ')
+                    var url = this.uri+"/pBanned/"+id;
+                    axios.post(url).then(function(response){
+                        if(0!=response.data.length){
+                            alert(response.data);
+                        }
+                        else{
+                            vue.list(0);
+                        }
+                    });
+                },
+                pUnlock:  function (id) {
+                    window.console.log('开始解封  ');
+                    var url = this.uri+"/pUnlock/"+id;
+                    axios.post(url).then(function(response){
+                        if(0!=response.data.length){
+                            alert(response.data);
+                        }
+                        else{
+                            vue.list(0);
+                        }
+                    });
+                }
+
             }
 
         });
@@ -81,6 +111,7 @@
                 <th>风格化尺度</th>
                 <th>颜色保留</th>
                 <th>查看详情</th>
+                <th>封禁/解封</th>
             </tr>
             </thead>
             <tbody>
@@ -96,8 +127,28 @@
                 <td>{{bean.template.name}}</td>
                 <td>{{bean.scale}}</td>
                 <td>{{bean.weight}}</td>
-                <td>{{bean.color}}</td>
-                <td><button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button></td>
+                <td>{{bean.colorRetain}}</td>
+                <td>
+                    <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button>
+                    <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                            请选择
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <a  href="#nowhere"  @click="pBanned(bean.id)">封禁</a>
+                            </li>
+                            <li>
+                                <a  href="#nowhere"  @click="pUnlock(bean.id)">解封</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
             <tr class="orderPageOrderItemTR"  :id="'ProdutDetails'+bean.id">
                 <!--注意这里的行数更上面对应-->

@@ -24,6 +24,22 @@ public class ProductController {
         Page4Navigator<Product> page =productService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
         return page;
     }
-
-
+    @PostMapping("/products/pBanned/{id}")
+    @CrossOrigin
+    public String  pBanned(@PathVariable("id") int id, HttpServletRequest request)  throws Exception {
+                Product product = productService.get(id);
+                product.setStatus(3);
+                log.info("当前更新为： "+product.toString());
+                productService.update(product);
+                 return  null;
+    }
+    @PostMapping("/products/pUnlock/{id}")
+    @CrossOrigin
+    public  String pUnlock(@PathVariable("id") int id, HttpServletRequest request)throws Exception {
+        Product product = productService.get(id);
+        product.setStatus(1);
+        log.info("当前更新为： "+product.toString());
+        productService.update(product);
+        return  null;
+    }
 }
