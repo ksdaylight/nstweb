@@ -21,7 +21,7 @@
       <module name="products-service" target="1.8" />
       <module name="user-service" target="1.8" />
       <module name="views-service" target="1.8" />
-      <module name="zuul-service" target="1.7" />
+      <module name="zuul-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

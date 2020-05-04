@@ -52,5 +52,24 @@ public class ForeRESTController {
         log.info("注册成功");
         return Result.success();
     }
+    @PostMapping("/forelogin")
+    public Object login(@RequestBody User userParam, HttpSession session) {
+        String name =  userParam.getName();
+        name = HtmlUtils.htmlEscape(name);
+
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(name, userParam.getPassword());
+        try {
+            subject.login(token);
+            User user = userService.getByName(name);
+//	    	subject.getSession().setAttribute("user", user);
+            session.setAttribute("user", user);
+            return Result.success();
+        } catch (AuthenticationException e) {
+            String message ="账号密码错误";
+            return Result.fail(message);
+        }
+
+    }
 
 }

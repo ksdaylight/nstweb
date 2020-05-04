@@ -12,10 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-@Service
-@CacheConfig(cacheNames="user")
-public class UserService {
+import java.util.Date;
 
+@Service
+@CacheConfig(cacheNames="users")
+public class UserService {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserService.class);
     @Autowired
     UserDao userDao;
 
@@ -31,7 +33,18 @@ public class UserService {
 
     @CacheEvict(allEntries=true)
     public void add(User user) {
-        userDao.save(user);
+        user.setBorn(new Date());
+        user.setEmail("11111");
+        user.setLogin_time(new Date());
+        user.setSex("男");
+        user.setPhone("112231321");
+        userDao.saveAndFlush(user);
+        log.info("立即查找：++++++"+ userDao.findByName(user.getName()).toString());
+    }
+
+    @Cacheable(key="'users-one-name-'+ #p0 +'-password-'+ #p1")
+    public User get(String name, String password) {
+        return userDao.getByNameAndPassword(name,password);
     }
 
 }

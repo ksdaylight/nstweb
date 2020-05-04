@@ -10,6 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,13 +29,17 @@ import java.io.IOException;
 @SpringBootTest(classes = ProductsServiceApplication.class)
 public class Test2 {
     @Autowired
-    TemplateDao dao;
+    TemplateDao productDao;
     @Test
     public void test() {
-        List<Template> cs=  dao.findAll();
-        for (Template c : cs) {
-            System.out.println("c.getName():"+ c.getName());
-        }
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(0, 5,sort);
+        Page pageFromJPA = productDao.findAll(pageable);
+
+
+//        for (Template c : cs) {
+//            System.out.println("c.getName():"+ c.getName());
+//        }
 
     }
     @Test
