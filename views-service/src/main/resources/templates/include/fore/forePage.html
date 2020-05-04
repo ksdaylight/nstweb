@@ -1,0 +1,56 @@
+<div class="pageDiv" th:fragment="html">
+    <div id="left">
+        <div class="juzhong">
+            <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                    每页显示行数
+                    <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li>
+                        <a  href="#nowhere"  @click="setSize(5)">5</a>
+                    </li>
+                    <li>
+                        <a  href="#nowhere"  @click="setSize(10)">10</a>
+                    </li>
+                    <li>
+                        <a  href="#nowhere"  @click="setSize(20)">20</a>
+                    </li>
+                    <li>
+                        <a  href="#nowhere"  @click="setSize(40)">40</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div id="right">
+
+        <nav>
+            <ul class="pagination">
+                <li :class="{ disabled: pagination.first }">
+                    <a  href="#nowhere" @click="jump('first')">«</a>
+                </li>
+                <li :class="{ disabled: !pagination.hasPrevious }">
+                    <a  href="#nowhere" @click="jump('pre')">‹</a>
+                </li>
+
+                <li :class="{active:pagination.number==i-1}" v-for="i in pagination.navigatepageNums">
+                    <a href="#nowhere" @click="jumpByNumber(i-1)" >
+                        {{i}}
+                    </a>
+                </li>
+
+                <li :class="{ disabled: !pagination.hasNext }">
+                    <a  href="#nowhere" @click="jump('next')">›</a>
+                </li>
+                <li :class="{ disabled: pagination.last }">
+                    <a  href="#nowhere" @click="jump('last')"> »</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+</div>

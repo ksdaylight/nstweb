@@ -25,11 +25,13 @@ public class AdminPageController {
     }
 
     @GetMapping(value="/admin_template_edit")
+    @CrossOrigin
     public String editCategory(){
         return "admin/editTemplate";
 
     }
     @GetMapping(value="/admin_product_list")
+    @CrossOrigin
     public String listProduct(){
         return "admin/listProduct";
 

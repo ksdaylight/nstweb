@@ -2295,4 +2295,38 @@ table td{
 input{
 	outline: none;
 }
+div.pageDiv{
+	text-align:center;
+	width:100%;
+	height:100px;
+}
 
+#left{
+	width: 20%;
+	text-align:center;
+	float: left;
+	height:79.6px;
+	padding-left: 15px;
+	position: relative;
+}
+#right{
+	width: 80%;
+	float: left;
+	padding-left: 15px;
+}
+div.juzhong{
+	width: 163px;
+	height: 34px;
+	border-radius:3px;
+
+	margin: auto;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+ul.pagination a.current{
+	font-weight:bold;
+	color:black;
+}
