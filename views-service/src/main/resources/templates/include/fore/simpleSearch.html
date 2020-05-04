@@ -1,0 +1,13 @@
+
+<div class th:fragment="html">
+    <a th:href="${application.contextPath}">
+        <img id="simpleLogo" class="simpleLogo" src="img/site/simpleLogo.png">
+    </a>
+    <form action="search" method="get" >
+        <div class="simpleSearchDiv pull-right">
+            <input type="text" placeholder="请输入"  name="keyword">
+            <button class="searchButton" type="submit">搜天猫</button>
+        </div>
+    </form>
+    <div style="clear:both"></div>
+</div>

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import edu.ymw.service.ProductService;
+import edu.ymw.util.Const;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -55,10 +56,10 @@ public class Product {
     public String getColorRetain() {
         String desc = "未知";
         switch(color){
-            case ProductService.yes :
+            case Const.Cyes :
                 desc="保留";
                 break;
-            case ProductService.no:
+            case Const.Cno:
                 desc="未保留";
                 break;
             default:
@@ -76,16 +77,16 @@ public class Product {
             return statusDesc;
         String desc ="未知";
         switch(status){
-            case ProductService.unfinished :
+            case Const.Punfinished :
                 desc="等待渲染";
                 break;
-            case ProductService.hide:
+            case Const.Phide:
                 desc="隐藏";
                 break;
-            case ProductService .open:
+            case Const.Popen:
                 desc="公开";
                 break;
-            case ProductService .baned:
+            case Const.Pbaned:
                 desc="封禁";
                 break;
             default:

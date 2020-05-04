@@ -17,12 +17,6 @@ import org.springframework.stereotype.Service;
 @CacheConfig(cacheNames="products")
 public class ProductService {
 
-    public static final int unfinished = 0;
-    public static final int hide = 1;
-    public static final int open = 2;
-    public static final int baned = 3;
-    public static final int yes = 1;
-    public static final int no= 2;
     @Autowired ProductDao productDao;
 
     @CacheEvict(allEntries=true)

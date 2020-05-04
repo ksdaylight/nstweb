@@ -10,9 +10,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>products-service</artifactId>
+    <artifactId>user-service</artifactId>
 
-    <name>products-service</name>
+    <name>user-service</name>
+    <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
     <properties>
@@ -35,11 +36,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>edu.ymw</groupId>
-            <artifactId>user-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

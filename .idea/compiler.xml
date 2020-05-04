@@ -9,6 +9,7 @@
         <module name="common" />
         <module name="eureka-server" />
         <module name="products-service" />
+        <module name="user-service" />
         <module name="views-service" />
         <module name="zuul-service" />
       </profile>
@@ -18,8 +19,9 @@
       <module name="eureka-server" target="1.8" />
       <module name="nstweb" target="1.8" />
       <module name="products-service" target="1.8" />
+      <module name="user-service" target="1.8" />
       <module name="views-service" target="1.8" />
-      <module name="zuul-service" target="1.8" />
+      <module name="zuul-service" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
