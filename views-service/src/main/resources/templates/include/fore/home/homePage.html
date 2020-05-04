@@ -87,30 +87,112 @@
 
 
     <title>NstWeb</title>
-    <div class="homepageDiv">
-        <div class="categoryPictureInProductPageDiv">
-            <hr />
-            <font size="5" color="green">排行:</font>
-            &nbsp;&nbsp;&nbsp;
-            <a href="#">
-                <font size="4" color="blue">日</font>
-            </a>
-            &nbsp;
-            <a href="#">
-                <font size="4" color="blue">周</font>
-            </a>
-            &nbsp;
-            <a href="#">
-                <font size="4" color="blue">月</font>
-            </a>
-            &nbsp;
-            <a href="#">
-                <font size="4" color="blue">总</font>
-            </a>
-            <hr />
+    <div class="container">
+        <hr />
+        <div class="row">
+            <div class="col-xs-4 ">
+                <font size="5" color="green">排行:</font>
+                &nbsp;&nbsp;&nbsp;
+                <a href="#">
+                    <font size="4" color="blue">日</font>
+                </a>
+                &nbsp;
+                <a href="#">
+                    <font size="4" color="blue">周</font>
+                </a>
+                &nbsp;
+                <a href="#">
+                    <font size="4" color="blue">月</font>
+                </a>
+                &nbsp;
+                <a href="#">
+                    <font size="4" color="blue">总</font>
+                </a>
+            </div>
+            <div class="col-xs-4 ">&nbsp;</div>
+            <div class="col-xs-4 ">&nbsp;</div>
         </div>
-    </div>
 
+    </div>
+    <template v-for="bean in beans ">
+        <tr>
+            <hr />
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2 ">&nbsp;</div>
+                    <div class="col-xs-2 " >
+                        <font size="5" color="blue">{{bean.user.name}}</font>
+                    </div>
+                    <div class="col-xs-1"><font size="4" >{{bean.title}}</font></div>
+                    <div class="col-xs-1">&nbsp;</div>
+                    <div class="col-xs-1">&nbsp;</div>
+                    <div class="col-xs-1">&nbsp;</div>
+                    <div class="col-xs-1">&nbsp;</div>
+                    <div class="col-xs-1">&nbsp;</div>
+
+                    <div class="col-xs-2 ">&nbsp;</div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2 ">&nbsp;</div>
+                    <div class="col-xs-8 " style= "height: 583px" >
+                        <a :href="'img/productFinish/'+bean.id+'.jpg'" :title="'风格化力度：'+bean.scale+'  风格化尺度：'+bean.weight+'  颜色保留：'+bean.colorRetain">
+                            <img id="mainImg" :src="'img/productFinish/'+bean.id+'.jpg'">
+                        </a>
+
+                    </div>
+                    <div class="col-xs-2 ">&nbsp;</div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2 ">&nbsp;</div>
+                    <div class="col-xs-4 ">
+                        <img  align="right" :src="'img/productSource/'+bean.id+'.jpg'">
+                    </div>
+                    <div class="col-xs-4 ">
+                        <img  align="left" :src="'img/template/'+bean.template.id+'.jpg'">
+                    </div>
+                    <div class="col-xs-2 ">&nbsp;</div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2 ">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-1">
+                        <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看评论</button>
+                    </div>
+                    <div class="col-xs-1"> <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1">
+                        <a href="#nowhere">
+                            <font class="glyphicon glyphicon-heart-empty" size="4" color="black">喜欢</font>
+                        </a>
+                    </div>
+
+                    <div class="col-xs-2">
+                        <a href="#nowhere">
+                            <font class="glyphicon glyphicon-play" size="4" color="bul">以此风格渲染</font>
+                        </a>
+                    </div>
+                    <div class="col-xs-1">
+                        <button type="button" class="btn btn-warning btn-xs">
+                            <font class="glyphicon glyphicon-remove" size="3" color="black">屏蔽</font>
+                        </button>
+                    </div>
+                    <div class="col-xs-1">
+                        <a href="#nowhere">
+                            <font class="glyphicon glyphicon-exclamation-sign" size="4" color="black">举报</font>
+                        </a>
+                    </div>
+                    <div class="col-xs-2 ">&nbsp;</div>
+                </div>
+            </div>
+        </tr>
+    </template>
 </div>
 
 

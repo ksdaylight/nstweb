@@ -2330,3 +2330,19 @@ ul.pagination a.current{
 	font-weight:bold;
 	color:black;
 }
+
+div.container div.row div {
+	margin:5px 0px;
+
+}
+div.container div.row div {
+	/*background-color: lightgray;*/
+	/*border: 1px solid gray;*/
+	text-align:center;
+}
+#mainImg{
+	background-color:green;
+	object-fit: cover;
+	width: 100%;
+	height: 100%
+}

@@ -28,6 +28,7 @@ public class TemplateController{
         Page4Navigator<Template> page =tempService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
         return page;
         //TODO 1让分页条和每页数挨着 2既能打开又能隐藏 3调整详情中图片的显示大小4 打开详情，下一页的也会打开
+        //TODO 排行靠左边显示一下
     }
 //PostMapping，REST 规范就是通过method的区别来辨别到底是获取还是增加的。
     @PostMapping("/templates")
