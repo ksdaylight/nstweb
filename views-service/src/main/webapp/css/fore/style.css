@@ -1058,12 +1058,13 @@ div.productReviewItem div.productReviewItemUserInfo {
 
 div.productReviewItemContent {
 	/* 	margin:0px 0px -30px 0px; */
-
+	float:left
 }
 
 div.productReviewItemDate {
 	margin: 15px 0px 0px 0px;
 	color: #CCCCCC;
+	float:left
 }
 
 span.userInfoGrayPart {
@@ -2336,8 +2337,8 @@ div.container div.row div {
 
 }
 div.container div.row div {
-	background-color: lightgray;
-	border: 1px solid gray;
+	/*background-color: lightgray;*/
+	/*border: 1px solid gray;*/
 	text-align:center;
 }
 #mainImg{

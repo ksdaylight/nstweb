@@ -9,11 +9,11 @@
             uri:'http://127.0.0.1:8031/api-products/products',
             beans: [],
             bean: { id: 0, name: ''},
-            pagination:{},
+            pagination:{"navigatePages":5,"totalPages":2,"number":0,"totalElements":7,"size":5,"numberOfElements":5,"content":[{"id":17,"user":{"id":14,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"13675036654","email":"156482584@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"2018-01-09","status":3,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"封禁","colorRetain":"保留"},{"id":11,"user":{"id":13,"name":"kinoko4","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"12354588654","email":"12312321@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"2018-01-09","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":5,"user":{"id":12,"name":"0.0","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"12554484855","email":"13354485588@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"2018-01-09","status":1,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"隐藏","colorRetain":"保留"},{"id":4,"user":{"id":6,"name":"春华静唯","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"1234568911","email":"adfasdfas@163.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"2018-01-09","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":3,"user":{"id":3,"name":"C酱","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"12345678901","email":"adfasdfas@163.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"2018-01-09","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"}],"first":true,"last":false,"navigatepageNums":[1,2],"hasNext":true,"hasContent":true,"hasPrevious":false},
             file: null,
             size: 5
         };
-
+    
         //ViewModel
         var vue = new Vue({
             el: '#workingArea',
@@ -26,9 +26,10 @@
                 list:function(start){
                     var url =  this.uri+ "?start="+start+"&size="+this.size;
                     window.console.log("产品列表开始加载数据");
+                    vue.beans = vue.pagination.content;
                     axios.get(url).then(function(response) {
-                        vue.pagination = response.data;
-                        vue.beans = response.data.content	;
+//                        vue.pagination = response.data;
+//                        vue.beans = response.data.content	;
                     });
                 },
                 showDetails: function(product){
@@ -94,25 +95,66 @@
         <!--<li><a :href="'admin_product_list?cid='+category.id">{{category.name}}</a></li>-->
         <!--<li class="active">产品管理</li>-->
     <!--</ol>-->
-    <h1 class="label label-info" >作品管理</h1>
+    <h1 class="label label-info" >用户管理</h1>
     <br>
     <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3 ">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                         <button class="btn btn-default" type="button">搜索</button>
+                     </span>
+                </div>
+            </div>
+
+            <div class="col-xs-2 ">
+                <div class="btn-group">
+                    <button type="button" class="btn btn btn-default dropdown-toggle " data-toggle="dropdown">
+                        选择分类
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#"></a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">CSS</a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="#">Javascript</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">AJAX</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+        </div>
+    </div>
+
     <div class="listDataTableDiv">
         <table class="table table-striped table-bordered table-hover table-condensed">
             <thead>
             <tr class="success">
                 <th>ID</th>
                 <th>用户名</th>
-                <th>作品标题</th>
                 <th>状态</th>
-                <th>创建时间</th>
-                <th>评论数</th>
-                <th>分数</th>
-                <th>模板名称</th>
-                <th>风格化力度</th>
-                <th>风格化尺度</th>
-                <th>颜色保留</th>
-                <th>查看详情</th>
+                <th>电话号码</th>
+                <th>邮箱</th>
+                <th>出生时间</th>
+                <th>性别</th>
                 <th>封禁/解封</th>
             </tr>
             </thead>
@@ -121,19 +163,12 @@
             <tr>
                 <td>{{bean.id}}</td>
                 <td>{{bean.user.name}}</td>
-                <td>{{bean.title}}</td>
                 <td>{{bean.statusDesc}}</td>
-                <td>{{bean.create_time | formatDateFilter}}</td>
-                <td>{{bean.comment_count}}</td>
-                <td>{{bean.score}}</td>
-                <td>{{bean.template.name}}</td>
-                <td>{{bean.scale}}</td>
-                <td>{{bean.weight}}</td>
-                <td>{{bean.colorRetain}}</td>
-                <td>
-                    <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button>
-                    <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button>
-                </td>
+                <td>{{bean.user.phone}}</td>
+                <td>{{bean.user.email}}</td>
+                <td>{{bean.title}}</td>
+
+                <td>{{bean.user.sex}}</td>
                 <td>
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
@@ -143,10 +178,16 @@
 
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li>
-                                <a  href="#nowhere"  @click="pBanned(bean.id)">封禁</a>
+                                <a  href="#nowhere"  @click="pBanned(bean.id)">一天</a>
                             </li>
                             <li>
-                                <a  href="#nowhere"  @click="pUnlock(bean.id)">解封</a>
+                                <a  href="#nowhere"  @click="pUnlock(bean.id)">一周</a>
+                            </li>
+                            <li>
+                                <a  href="#nowhere"  @click="pUnlock(bean.id)">一年</a>
+                            </li>
+                            <li>
+                                <a  href="#nowhere"  @click="pUnlock(bean.id)">永久</a>
                             </li>
                         </ul>
                     </div>

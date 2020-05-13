@@ -18,12 +18,16 @@ public class AdminPageController {
         return "redirect:admin_template_list";
     }
 
-    @GetMapping(value="/admin_template_list")
-    @CrossOrigin
-    public String listTemplate(){
-        return "admin/listTemplate";
-    }
-
+//    @GetMapping(value="/admin_template_list")
+//    @CrossOrigin
+//    public String listTemplate(){
+//        return "admin/listTemplate";
+//    }
+@GetMapping(value="/admin_template_list")
+@CrossOrigin
+public String listTemplate(){
+    return "admin/listTemplate2";
+}
     @GetMapping(value="/admin_template_edit")
     @CrossOrigin
     public String editCategory(){
@@ -36,7 +40,24 @@ public class AdminPageController {
         return "admin/listProduct";
 
     }
+//@GetMapping(value="/admin_product_list")
+//@CrossOrigin
+//public String listProduct(){
+//    return "admin/listProduct2";
+//
+//}
+    @GetMapping(value="/admin_user_list")
+    @CrossOrigin
+    public String listUser(){
+        return "admin/listUser";
 
+    }
+    @GetMapping(value="/admin_report_list")
+    @CrossOrigin
+    public String listReport(){
+        return "admin/listReport2";
+
+    }
     @GetMapping(value="/test")
     @CrossOrigin
     public  String test() throws Exception{

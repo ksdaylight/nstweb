@@ -9,7 +9,7 @@
             uri:'http://127.0.0.1:8031/api-products/products',
             beans: [],
             bean: { id: 0, name: ''},
-            pagination:{},
+            pagination:{"navigatePages":5,"totalPages":2,"number":0,"totalElements":7,"size":5,"numberOfElements":5,"content":[{"id":7,"user":{"id":3,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"","email":"156482584@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"作品","status":4,"create_time":15864784720000,"comment_count":4,"score":121312.0,"template":{"id":1,"name":"未处理"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"未处理","colorRetain":"2020-04-10 08:28:52"},{"id":6,"user":{"id":3,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"","email":"156482584@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"作品","status":4,"create_time":15864784720000,"comment_count":4,"score":121312.0,"template":{"id":1,"name":"未处理"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"未处理","colorRetain":"2020-04-10 08:28:03"},{"id":5,"user":{"id":3,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"","email":"156482584@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"作品","status":4,"create_time":15864784720000,"comment_count":4,"score":121312.0,"template":{"id":1,"name":"未处理"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"未处理","colorRetain":"2020-04-10 08:27:59"},{"id":4,"user":{"id":3,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"","email":"156482584@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"作品","status":4,"create_time":15864784720000,"comment_count":4,"score":121312.0,"template":{"id":1,"name":"未处理"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"未处理","colorRetain":"2020-04-10 08:27:20"},{"id":3,"user":{"id":3,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"","email":"156482584@qq.com","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"作品","status":4,"create_time":15864784720000,"comment_count":4,"score":121312.0,"template":{"id":1,"name":"未处理"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"未处理","colorRetain":"2020-04-10 08:27:26"}],"first":true,"last":false,"navigatepageNums":[1,2],"hasNext":true,"hasContent":true,"hasPrevious":false},
             file: null,
             size: 5
         };
@@ -26,9 +26,10 @@
                 list:function(start){
                     var url =  this.uri+ "?start="+start+"&size="+this.size;
                     window.console.log("产品列表开始加载数据");
+                    vue.beans = vue.pagination.content;
                     axios.get(url).then(function(response) {
-                        vue.pagination = response.data;
-                        vue.beans = response.data.content	;
+//                        vue.pagination = response.data;
+//                        vue.beans = response.data.content	;
                     });
                 },
                 showDetails: function(product){
@@ -94,45 +95,104 @@
         <!--<li><a :href="'admin_product_list?cid='+category.id">{{category.name}}</a></li>-->
         <!--<li class="active">产品管理</li>-->
     <!--</ol>-->
-    <h1 class="label label-info" >作品管理</h1>
+    <h1 class="label label-info" >举报管理</h1>
     <br>
     <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3 ">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                         <button class="btn btn-default" type="button">搜索</button>
+                     </span>
+                </div>
+            </div>
+
+            <div class="col-xs-2 ">
+                <div class="btn-group">
+                    <button type="button" class="btn btn btn-default dropdown-toggle " data-toggle="dropdown">
+                        选择分类
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#"></a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">CSS</a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="#">Javascript</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">AJAX</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+            <div class="col-xs-1 ">&nbsp</div>
+        </div>
+    </div>
+
     <div class="listDataTableDiv">
         <table class="table table-striped table-bordered table-hover table-condensed">
             <thead>
             <tr class="success">
                 <th>ID</th>
-                <th>用户名</th>
-                <th>作品标题</th>
+                <th>发出者id</th>
+                <th>被举报者id</th>
+                <th>对象id</th>
+                <th>对象类型</th>
                 <th>状态</th>
                 <th>创建时间</th>
-                <th>评论数</th>
-                <th>分数</th>
-                <th>模板名称</th>
-                <th>风格化力度</th>
-                <th>风格化尺度</th>
-                <th>颜色保留</th>
-                <th>查看详情</th>
-                <th>封禁/解封</th>
+                <th>处理备注</th>
+                <th>封禁用户</th>
+                <th>封禁作品</th>
             </tr>
             </thead>
             <tbody>
             <template v-for="bean in beans ">
             <tr>
                 <td>{{bean.id}}</td>
-                <td>{{bean.user.name}}</td>
+                <td>{{bean.user.id}}</td>
+                <td>{{bean.status}}</td>
+                <td>{{bean.comment_count}}</td>
                 <td>{{bean.title}}</td>
                 <td>{{bean.statusDesc}}</td>
-                <td>{{bean.create_time | formatDateFilter}}</td>
-                <td>{{bean.comment_count}}</td>
-                <td>{{bean.score}}</td>
-                <td>{{bean.template.name}}</td>
-                <td>{{bean.scale}}</td>
-                <td>{{bean.weight}}</td>
                 <td>{{bean.colorRetain}}</td>
+                <td></td>
                 <td>
-                    <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button>
-                    <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button>
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                            请选择
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <a  href="#nowhere"  @click="pBanned(bean.id)">一天</a>
+                            </li>
+                            <li>
+                                <a  href="#nowhere"  @click="pUnlock(bean.id)">一周</a>
+                            </li>
+                            <li>
+                                <a  href="#nowhere"  @click="pUnlock(bean.id)">一年</a>
+                            </li>
+                            <li>
+                                <a  href="#nowhere"  @click="pUnlock(bean.id)">永久</a>
+                            </li>
+                        </ul>
+                    </div>
                 </td>
                 <td>
                     <div class="dropdown">

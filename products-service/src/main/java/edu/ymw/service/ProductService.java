@@ -41,7 +41,6 @@ public class ProductService {
         Pageable pageable = new PageRequest(start, size,sort);
         Page pageFromJPA = productDao.findAll(pageable);
 
-
         return new Page4Navigator<>(pageFromJPA,navigatePages);
     }
 }

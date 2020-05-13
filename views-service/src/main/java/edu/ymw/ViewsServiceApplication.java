@@ -14,9 +14,12 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import org.springframework.context.annotation.Configuration;
+
 
 @SpringBootApplication
 @EnableEurekaClient
+
 public class ViewsServiceApplication {
     public static void main(String[] args) {
         int port = 0;
@@ -61,3 +64,5 @@ public class ViewsServiceApplication {
     }
 
 }
+
+

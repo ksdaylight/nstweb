@@ -3,7 +3,7 @@
     <script>
         $(function(){
             var data4Vue = {
-                uri:'http://127.0.0.1:8041/foreregister',
+                uri:'http://127.0.0.1:8031/api-user/foreregister',
                 result: [],
                 user:{name:'', password:'', repeatpassword:''}
             };
@@ -41,7 +41,7 @@
                         axios.post(url,this.user).then(function(response) {
                             var result = response.data;
                             if(result.code==0){
-                                location.href="http://127.0.0.1:8041/registerSuccess";
+                                location.href="http://127.0.0.1:8031/api-views/registerSuccess";
                             }
                             else{
                                 $("span.errorMessage").html(result.message);

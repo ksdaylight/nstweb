@@ -6,7 +6,7 @@
                 uri:'http://127.0.0.1:8031/api-products/products',
                 beans: [],
                 bean: { id: 0, name: ''},
-                pagination:{},
+                pagination:{"navigatePages":5,"totalPages":2,"number":0,"totalElements":7,"size":5,"numberOfElements":5,"content":[{"id":7,"user":{"id":1,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":3,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":23,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"封禁","colorRetain":"保留"},{"id":6,"user":{"id":1,"name":"kinoko4","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":5,"user":{"id":1,"name":"0.0","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":1,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"隐藏","colorRetain":"保留"},{"id":4,"user":{"id":1,"name":"春华静唯","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":3,"user":{"id":1,"name":"C酱","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"}],"first":true,"last":false,"navigatepageNums":[1,2],"hasNext":true,"hasContent":true,"hasPrevious":false},
                 file: null,
                 size: 5
             };
@@ -23,9 +23,10 @@
                     list:function(start){
                         var url =  this.uri+ "?start="+start+"&size="+this.size;
                         window.console.log("产品列表开始加载数据");
+                        vue.beans = vue.pagination.content;
                         axios.get(url).then(function(response) {
-                            vue.pagination = response.data;
-                            vue.beans = response.data.content	;
+//                            vue.pagination = response.data;
+//                            vue.beans = response.data.content	;
                         });
                     },
                     showDetails: function(product){
@@ -47,9 +48,9 @@
                         vue.list(0);
                     }
                     ,
-                    pLike:  function (id) {
-                        window.console.log('开始喜欢 ')
-                        var url = this.uri+"/pLike/"+id;
+                    pBanned:  function (id) {
+                        window.console.log('开始封禁 ')
+                        var url = this.uri+"/pBanned/"+id;
                         axios.post(url).then(function(response){
                             if(0!=response.data.length){
                                 alert(response.data);
@@ -59,9 +60,9 @@
                             }
                         });
                     },
-                    pUnlike:  function (uid,pid) {
-                        window.console.log('开始不喜欢  ');
-                        var url = this.uri+"/pUnlike/"+"?uid="+uid+"&pid="+pid;
+                    pUnlock:  function (id) {
+                        window.console.log('开始解封  ');
+                        var url = this.uri+"/pUnlock/"+id;
                         axios.post(url).then(function(response){
                             if(0!=response.data.length){
                                 alert(response.data);
@@ -110,7 +111,7 @@
                 </a>
             </div>
             <div class="col-xs-4 ">&nbsp;</div>
-            <div class="col-xs-4 ">&nbsp;</div>
+            <div class="col-xs-4 "><button type="button" class="btn btn-info">生成你的专属图像</button></div>
         </div>
 
     </div>
@@ -163,10 +164,15 @@
                     <div class="col-xs-1">
                         <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看评论</button>
                     </div>
-                    <div class="col-xs-1"> <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
-                    <div class="col-xs-1"></div>
                     <div class="col-xs-1">
-                        <a href="#nowhere"  @click="pLike(bean.id)">
+                        <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
+                    <div class="col-xs-1">
+                        <a href="#nowhere">
+                            <font class="glyphicon glyphicon-send" size="4" color="black">分享</font>
+                        </a>
+                    </div>
+                    <div class="col-xs-1">
+                        <a href="#nowhere">
                             <font class="glyphicon glyphicon-heart-empty" size="4" color="black">喜欢</font>
                         </a>
                     </div>
@@ -187,6 +193,52 @@
                         </a>
                     </div>
                     <div class="col-xs-2 ">&nbsp;</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 "></div>
+                    <div class="col-xs-1 "></div>
+                    <div class="col-xs-8 ">
+                        <!--<div class="productReviewContentPart">-->
+                            <!--<div class="productReviewItem">-->
+                                <!--<div class="productReviewItemDesc">-->
+                                    <!--<div class="productReviewItemDate">-->
+                                        <!--2020-04-29 10:28:56-->
+                                    <!--</div>-->
+                                    <!--<br>-->
+                                    <!--<div class="productReviewItemContent" >-->
+                                        <!--&nbsp  <font size="3" color="black">很美!</font>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                                <!--<div class="productReviewItemUserInfo">-->
+                                    <!--kinoko4<span class="userInfoGrayPart"> (回复)</span>-->
+                                <!--</div>-->
+
+                                <!--<div style="clear:both"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="productReviewContentPart">-->
+                            <!--<div class="productReviewItem">-->
+                                <!--<div class="productReviewItemDesc">-->
+                                    <!--<div class="productReviewItemDate">-->
+                                        <!--2020-04-29 10:26:00-->
+                                    <!--</div>-->
+                                    <!--<br>-->
+                                    <!--<div class="productReviewItemContent" >-->
+                                        <!--&nbsp  <font size="3" color="black">赞同楼上!</font>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                                <!--<div class="productReviewItemUserInfo">-->
+                                    <!--C酱<span class="userInfoGrayPart"> (回复)</span>-->
+                                <!--</div>-->
+
+                                <!--<div style="clear:both"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="col-xs-1 "></div>
+                    <div class="col-xs-1 "></div>
                 </div>
             </div>
         </tr>

@@ -1,0 +1,251 @@
+
+<div th:fragment="html">
+    <script>
+        $(function(){
+            var data4Vue = {
+                uri:'http://127.0.0.1:8031/api-products/products',
+                beans: [],
+                bean: { id: 0, name: ''},
+                pagination:{"navigatePages":5,"totalPages":2,"number":0,"totalElements":7,"size":5,"numberOfElements":5,"content":[{"id":7,"user":{"id":1,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":3,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":23,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"封禁","colorRetain":"保留"},{"id":6,"user":{"id":1,"name":"kinoko4","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":5,"user":{"id":1,"name":"0.0","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":1,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"隐藏","colorRetain":"保留"},{"id":4,"user":{"id":1,"name":"春华静唯","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":3,"user":{"id":1,"name":"C酱","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"}],"first":true,"last":false,"navigatepageNums":[1,2],"hasNext":true,"hasContent":true,"hasPrevious":false},
+                file: null,
+                size: 5
+            };
+
+            //ViewModel
+            var vue = new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+                    this.list(0);
+                },
+                methods: {
+
+                    list:function(start){
+                        var url =  this.uri+ "?start="+start+"&size="+this.size;
+                        window.console.log("产品列表开始加载数据");
+                        vue.beans = vue.pagination.content;
+                        axios.get(url).then(function(response) {
+//                            vue.pagination = response.data;
+//                            vue.beans = response.data.content	;
+                        });
+                    },
+                    showDetails: function(product){
+                        var id = product.id;
+                        $("#ProdutDetails"+id).show();///------
+                    },
+                    hideDetails: function(product){
+                        var id = product.id;
+                        $("#ProdutDetails"+id).hide();///------
+                    },
+                    jump: function(page){
+                        jump(page,vue); //定义在adminHeader.html 中
+                    },
+                    jumpByNumber: function(start){
+                        jumpByNumber(start,vue);
+                    },
+                    setSize:  function (size) {
+                        this.size=size;
+                        vue.list(0);
+                    }
+                    ,
+                    pBanned:  function (id) {
+                        window.console.log('开始封禁 ')
+                        var url = this.uri+"/pBanned/"+id;
+                        axios.post(url).then(function(response){
+                            if(0!=response.data.length){
+                                alert(response.data);
+                            }
+                            else{
+                                vue.list(0);
+                            }
+                        });
+                    },
+                    pUnlock:  function (id) {
+                        window.console.log('开始解封  ');
+                        var url = this.uri+"/pUnlock/"+id;
+                        axios.post(url).then(function(response){
+                            if(0!=response.data.length){
+                                alert(response.data);
+                            }
+                            else{
+                                vue.list(0);
+                            }
+                        });
+                    }
+
+                }
+
+            });
+            Vue.filter('formatDateFilter', function (value, formatString) {
+                if(null==value)
+                    return "";
+                formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
+                return moment(value).format(formatString);
+            });
+        });
+
+    </script>
+
+
+    <title>NstWeb</title>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "><font size="5" color="blue">风格化尺度:</font></div>
+            <div class="col-xs-8 ">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle "  data-toggle="dropdown"  style="width:700px">
+                        1.0
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">HTML</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">CSS</a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="#">Javascript</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">AJAX</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-2 "></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "><font size="5" color="blue">风格化力度:</font></div>
+            <div class="col-xs-8 ">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle "  data-toggle="dropdown"  style="width:700px">
+                        3000
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">HTML</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">CSS</a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="#">Javascript</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">AJAX</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-2 "></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "><font size="5" color="blue">是否保留颜色:</font></div>
+            <div class="col-xs-8 ">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle "  data-toggle="dropdown"  style="width:700px">
+                        否
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">HTML</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">CSS</a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="#">Javascript</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">AJAX</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-2 "></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "><font size="5" color="blue">上传原图:</font></div>
+            <div class="col-xs-8 ">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle "  data-toggle="dropdown"  style="width:700px">
+                        否
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">HTML</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">CSS</a>
+                        </li>
+
+                        <li role="presentation">
+                            <a href="#">Javascript</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#">AJAX</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-2 "></div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "></div>
+            <div class="col-xs-8 ">
+                <img  align="left" :src="'img/productSource/a.jpg'">
+            </div>
+            <div class="col-xs-2 "></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "><font size="5" color="blue">选择模板:</font></div>
+            <div class="col-xs-2 "><img  align="left" :src="'img/template/1.jpg'"></div>
+            <div class="col-xs-2 "><img  align="left" :src="'img/template/16.jpg'"></div>
+            <div class="col-xs-2 "><img  align="left" :src="'img/template/17.jpg'"></div>
+            <div class="col-xs-2 "><img  align="left" :src="'img/template/18.jpg'"></div>
+            <div class="col-xs-2 "><button type="button" class="btn btn-info">自传模板</button></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "></div>
+            <div class="col-xs-2 "><img  align="left" :src="'img/template/21.jpg'"></div>
+            <div class="col-xs-2 "></div>
+            <div class="col-xs-2 "></div>
+            <div class="col-xs-2 "></div>
+            <div class="col-xs-2 "></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "></div>
+            <div class="col-xs-8 ">
+                <button type="button" class="btn btn-primary" style="width:700px">提交</button>
+            </div>
+
+            <div class="col-xs-2 "></div>
+        </div>
+    </div>

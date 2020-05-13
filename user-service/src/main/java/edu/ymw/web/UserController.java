@@ -3,25 +3,24 @@ package edu.ymw.web;
 import edu.ymw.pojo.User;
 import edu.ymw.service.UserService;
 import edu.ymw.util.Result;
-import org.apache.commons.lang.math.RandomUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.RestController;
+
+import edu.ymw.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 @RestController
-public class ForeRESTController {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ForeRESTController.class);
+public class UserController {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
     @Autowired
     UserService userService;
 
@@ -64,6 +63,8 @@ public class ForeRESTController {
             User user = userService.getByName(name);
 //	    	subject.getSession().setAttribute("user", user);
             session.setAttribute("user", user);
+            log.info("存入的session了user为"+user.toString());
+            log.info("sessionID wei"+session.getId());
             return Result.success();
         } catch (AuthenticationException e) {
             String message ="账号密码错误";
@@ -71,5 +72,4 @@ public class ForeRESTController {
         }
 
     }
-
 }

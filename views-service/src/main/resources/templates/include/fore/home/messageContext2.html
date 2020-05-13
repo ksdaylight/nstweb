@@ -1,0 +1,151 @@
+
+<div th:fragment="html">
+    <script>
+        $(function(){
+            var data4Vue = {
+                uri:'http://127.0.0.1:8031/api-products/products',
+                beans: [],
+                bean: { id: 0, name: ''},
+                pagination:{"navigatePages":5,"totalPages":2,"number":0,"totalElements":7,"size":5,"numberOfElements":5,"content":[{"id":7,"user":{"id":1,"name":"小肉卷","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":3,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":23,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"封禁","colorRetain":"保留"},{"id":6,"user":{"id":1,"name":"kinoko4","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":5,"user":{"id":1,"name":"0.0","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":1,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"隐藏","colorRetain":"保留"},{"id":4,"user":{"id":1,"name":"春华静唯","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"},{"id":3,"user":{"id":1,"name":"C酱","password":"704926723d60ba55bbd6cd267b3a1bf5","salt":"AQZY2EEBqtmmOt1CANFXIw==","phone":"123456","email":"adfasdfas","born":1515427200000,"sex":"man","login_time":1515465840000},"title":"测试","status":0,"create_time":1515465840000,"comment_count":11,"score":121312.0,"template":{"id":1,"name":"TEST"},"scale":1.0,"weight":3000,"color":1,"statusDesc":"等待渲染","colorRetain":"保留"}],"first":true,"last":false,"navigatepageNums":[1,2],"hasNext":true,"hasContent":true,"hasPrevious":false},
+                file: null,
+                size: 5
+            };
+
+            //ViewModel
+            var vue = new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+                    this.list(0);
+                },
+                methods: {
+
+                    list:function(start){
+                        var url =  this.uri+ "?start="+start+"&size="+this.size;
+                        window.console.log("产品列表开始加载数据");
+                        vue.beans = vue.pagination.content;
+                        axios.get(url).then(function(response) {
+//                            vue.pagination = response.data;
+//                            vue.beans = response.data.content	;
+                        });
+                    },
+                    showDetails: function(product){
+                        var id = product.id;
+                        $("#ProdutDetails"+id).show();///------
+                    },
+                    hideDetails: function(product){
+                        var id = product.id;
+                        $("#ProdutDetails"+id).hide();///------
+                    },
+                    jump: function(page){
+                        jump(page,vue); //定义在adminHeader.html 中
+                    },
+                    jumpByNumber: function(start){
+                        jumpByNumber(start,vue);
+                    },
+                    setSize:  function (size) {
+                        this.size=size;
+                        vue.list(0);
+                    }
+                    ,
+                    pBanned:  function (id) {
+                        window.console.log('开始封禁 ')
+                        var url = this.uri+"/pBanned/"+id;
+                        axios.post(url).then(function(response){
+                            if(0!=response.data.length){
+                                alert(response.data);
+                            }
+                            else{
+                                vue.list(0);
+                            }
+                        });
+                    },
+                    pUnlock:  function (id) {
+                        window.console.log('开始解封  ');
+                        var url = this.uri+"/pUnlock/"+id;
+                        axios.post(url).then(function(response){
+                            if(0!=response.data.length){
+                                alert(response.data);
+                            }
+                            else{
+                                vue.list(0);
+                            }
+                        });
+                    }
+
+                }
+
+            });
+            Vue.filter('formatDateFilter', function (value, formatString) {
+                if(null==value)
+                    return "";
+                formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
+                return moment(value).format(formatString);
+            });
+        });
+
+    </script>
+
+
+    <title>NstWeb</title>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 "></div>
+            <div class="col-xs-8 ">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#dota" data-toggle="tab">
+                            用户私信
+                        </a>
+                    </li>
+                    <li><a href="#lol" data-toggle="tab">
+                        系统消息
+                    </a>
+                    </li>
+
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="dota">
+                        <p>《DotA》（Defense of the Ancients），可以译作守护古树、守护遗迹、远古遗迹守卫， 是由暴雪公司出品即时战略游戏《魔兽争霸3》的一款多人即时对战、自定义地图，可支持10个人同时连线游戏，是暴雪公司官方认可的魔兽争霸的RPG地图。</p>
+                    </div>
+                    <div class="tab-pane fade" id="lol">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"  style= "float:left"  >系统通知</div>
+                            <div class="panel-body">
+                                欢迎你注册...
+                            </div>
+                            <div class="panel-footer" >
+                                2020-4-28 11：30 &nbsp &nbsp <a href="#"><font class="glyphicon glyphicon-user" size="2" color="blue">共1条会话</font></a>
+                            </div>
+                        </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading"  style= "float:left"  >评论</div>
+                            <div class="panel-body">
+                                用户0.0评论了你的作品...
+                            </div>
+                            <div class="panel-footer">2020-4-28 11：30 &nbsp &nbsp <a href="#"><font class="glyphicon glyphicon-user" size="2" color="blue">共1条会话</font></a> </div>
+                        </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading"  style= "float:left"  >喜欢</div>
+                            <div class="panel-body">
+                                用户0.0喜欢了你的作品...
+                            </div>
+                            <div class="panel-footer" >2020-4-28 11：30 &nbsp &nbsp <a href="#"><font class="glyphicon glyphicon-user" size="2" color="blue">共1条会话</font></a> </div>
+                        </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading"  style= "float:left"  >关注</div>
+                            <div class="panel-body">
+                                用户0.0关注了你...
+                            </div>
+                            <div class="panel-footer">2020-4-28 11：30 &nbsp &nbsp <a href="#"><font class="glyphicon glyphicon-user" size="2" color="blue">共1条会话</font></a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2 " ></div>
+        </div>
+    </div>
+
+
+

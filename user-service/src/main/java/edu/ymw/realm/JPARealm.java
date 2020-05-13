@@ -21,6 +21,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class JPARealm extends AuthorizingRealm {
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(JPARealm.class);
 
 	@Autowired
 	private UserService userService;
@@ -35,11 +36,24 @@ public class JPARealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		String userName = token.getPrincipal().toString();
+		log.info("取出的userName:"+userName );
 		User user = userService.getByName(userName);
+		if(user == null){
+			log.info("傻逼" );
+			log.info("居然没查到???" );
+			log.info("呵呵呵" );
+		}
+		else {
+			log.info("取出的user:"+user.toString() );
+		}
+
 		String passwordInDB = user.getPassword();
 		String salt = user.getSalt();
+		log.info("取出密码:"+passwordInDB );
+		log.info("取出的盐:"+salt);
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(userName, passwordInDB, ByteSource.Util.bytes(salt),
 				getName());
+		log.info("验证成功");
 		return authenticationInfo;
 	}
 

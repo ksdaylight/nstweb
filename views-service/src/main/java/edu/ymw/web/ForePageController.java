@@ -14,6 +14,29 @@ public class ForePageController {
     public String home(){
         return "fore/home";
     }
+//    @GetMapping(value="/home")
+//    @CrossOrigin
+//    public String home(){
+//        return "fore/home2";
+//    }
+
+    @GetMapping(value="/Mypage")
+    @CrossOrigin
+    public String mypage(){
+        return "fore/mypage2";
+    }
+
+    @GetMapping(value="/message")
+    @CrossOrigin
+    public String message(){
+        return "fore/message2";
+    }
+
+    @GetMapping(value="/add")
+    @CrossOrigin
+    public String add(){
+        return "fore/add2";
+    }
 
     @GetMapping(value="/register")
     @CrossOrigin

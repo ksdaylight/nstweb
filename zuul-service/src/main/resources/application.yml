@@ -10,6 +10,12 @@ zuul:
     api-a:
       path: /api-products/**
       serviceId: PRODUCTS-SERVICE
+      sensitiveHeaders: "*"
     api-b:
       path: /api-views/**
       serviceId: views-service
+      sensitiveHeaders: "*"
+    api-c:
+          path: /api-user/**
+          serviceId: user-service
+          sensitiveHeaders: "*"

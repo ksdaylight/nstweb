@@ -148,3 +148,12 @@ select.pageSizeSelect {
 	right: 0px;
 
 }
+div.container div.row div {
+	margin:5px 0px;
+
+}
+div.container div.row div {
+	/*background-color: lightgray;*/
+	/*border: 1px solid gray;*/
+	text-align:center;
+}
