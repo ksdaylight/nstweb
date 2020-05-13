@@ -9,6 +9,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.ymw.util.Page4Navigator;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -23,6 +25,8 @@ public class UserController {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
     @Autowired
     UserService userService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping("/foreregister")
     public Object register(@RequestBody User user) {
@@ -62,9 +66,12 @@ public class UserController {
             subject.login(token);
             User user = userService.getByName(name);
 //	    	subject.getSession().setAttribute("user", user);
-            session.setAttribute("user", user);
+            log.info("开始存入session"+user.toString());
+//            session.setAttribute("user", user);
+            //还是直接存入redis吧
+            redisTemplate.opsForValue().set("NowUser",user);
             log.info("存入的session了user为"+user.toString());
-            log.info("sessionID wei"+session.getId());
+            log.info("sessionID 为："+session.getId());
             return Result.success();
         } catch (AuthenticationException e) {
             String message ="账号密码错误";

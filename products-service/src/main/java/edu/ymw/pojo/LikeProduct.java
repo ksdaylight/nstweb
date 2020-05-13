@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "likeProduct")
+@Table(name = "likeproduct")
 @JsonIgnoreProperties({ "handler","hibernateLazyInitializer"})
 public class LikeProduct {
     @Id
@@ -14,9 +14,11 @@ public class LikeProduct {
     @Column(name = "id")
     int id;
 
+    @Column(name = "user_id")
     private int uId;
-
+    @Column(name = "like_id")
     private  int  likeId;
+    @Column(name = "create_time")
     private Date createTime;
 
     @Override

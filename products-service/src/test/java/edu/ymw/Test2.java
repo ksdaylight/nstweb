@@ -1,7 +1,9 @@
 package edu.ymw;
 import java.util.List;
 
+import edu.ymw.dao.LikeProductDao;
 import edu.ymw.dao.TemplateDao;
+import edu.ymw.pojo.LikeProduct;
 import edu.ymw.pojo.Template;
 
 import java.util.List;
@@ -30,6 +32,9 @@ import java.io.IOException;
 public class Test2 {
     @Autowired
     TemplateDao productDao;
+    @Autowired
+    LikeProductDao likeProductDao;
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Test2.class);
     @Test
     public void test() {
         Sort sort = new Sort(Sort.Direction.DESC, "id");
@@ -45,6 +50,14 @@ public class Test2 {
     @Test
     public void test2(){
 //        System.out.println(request.getServletContext().getRealPath("img/template"));
+        LikeProduct likeProduct= likeProductDao.findByUIdAndLikeId(5,7);
+        if (null!=likeProduct){
+            log.info("we\\\\:"+likeProduct.toString());
+        }else {
+            log.info("不存在");
+        }
+
+
     }
 
 }

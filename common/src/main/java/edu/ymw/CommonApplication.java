@@ -8,9 +8,13 @@ import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.session.data.redis.RedisFlushMode;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication
 @EnableEurekaClient
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800,
+        redisFlushMode = RedisFlushMode.IMMEDIATE)
 public class CommonApplication {
     public static void main(String[] args) {
         int port = 8090;
