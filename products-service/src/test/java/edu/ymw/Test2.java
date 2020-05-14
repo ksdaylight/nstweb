@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,13 +37,15 @@ public class Test2 {
     TemplateDao productDao;
     @Autowired
     LikeProductDao likeProductDao;
+    @Autowired
+    private RedisTemplate redisTemplate;
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Test2.class);
     @Test
     public void test() {
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
-        Pageable pageable = new PageRequest(0, 5,sort);
-        Page pageFromJPA = productDao.findAll(pageable);
-
+//        Sort sort = new Sort(Sort.Direction.DESC, "id");
+//        Pageable pageable = new PageRequest(0, 5,sort);
+//        Page pageFromJPA = productDao.findAll(pageable);
+        redisTemplate.delete("NowUser");
 
 //        for (Template c : cs) {
 //            System.out.println("c.getName():"+ c.getName());

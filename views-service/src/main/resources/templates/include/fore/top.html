@@ -1,19 +1,23 @@
 
 <nav class="top" th:fragment="html">
     <a th:href="${application.contextPath}">
-        <span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-home"></span>
+        <span style="color:#3f68c4;margin:0px" class=" glyphicon glyphicon-home"></span>
         NstWeb首页
     </a>
 
     <span>hi，欢迎来本站</span>
 
-    <span th:if="${null!=session.user}">
-		<a href="login" th:text="${session.user}"></a>
+    <!--<span th:if="${null!=nowuser}">-->
+		<!--<a href="login" th:text="${nowuser.name}"></a>-->
+		<!--<a href="forelogout" >退出</a>-->
+	<!--</span>-->
+    <!--<span v-if="nowUser!== undefined && **">-->
+    <span v-if="nowUser.name.length > 0">
+		<a href="login" >{{nowUser.name}}</a>
 		<a href="forelogout" >退出</a>
 	</span>
 
-
-    <span th:if="${null==session.user}">
+    <span v-if="nowUser.name.length <= 0">
 		<a href="login">请登录</a>
 		<a href="register">免费注册</a>
 	</span>

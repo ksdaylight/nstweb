@@ -5,13 +5,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 import cn.hutool.core.util.NetUtil;
-import org.springframework.session.data.redis.RedisFlushMode;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+
 
 @SpringBootApplication
 @EnableEurekaServer
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800,
-        redisFlushMode = RedisFlushMode.IMMEDIATE)
 public class EurekaServerApplication {
 
     public static void main(String[] args) {

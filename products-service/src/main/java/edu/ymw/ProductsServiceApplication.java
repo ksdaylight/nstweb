@@ -16,16 +16,14 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springframework.session.data.redis.RedisFlushMode;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+
 
 import static org.apache.shiro.web.filter.mgt.DefaultFilter.port;
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableCaching
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800,
-        redisFlushMode = RedisFlushMode.IMMEDIATE)
+
 public class ProductsServiceApplication {
     public static void main(String[] args) {
         int port = 0;

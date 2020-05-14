@@ -28,8 +28,23 @@ public class UserController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @GetMapping("/userName")
+    @CrossOrigin
+    //请求跨域
+    public User getUserName() throws Exception {
+        try {
+            User user =(User) redisTemplate.opsForValue().get("NowUser");
+            log.info("获取到的user ::"+user.toString());
+            return  user;
+        }catch (Exception e) {
+            User user =new User();
+            user.setName("");
+            return user;
+        }
+
+    }
     @PostMapping("/foreregister")
-    public Object register(@RequestBody User user) {
+    public Object register(@RequestBody User user)  throws Exception {
         String name =  user.getName();
         String password = user.getPassword();
         name = HtmlUtils.htmlEscape(name);
@@ -56,7 +71,7 @@ public class UserController {
         return Result.success();
     }
     @PostMapping("/forelogin")
-    public Object login(@RequestBody User userParam) {
+    public Object login(@RequestBody User userParam)  throws Exception {
         String name =  userParam.getName();
         name = HtmlUtils.htmlEscape(name);
 
