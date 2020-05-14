@@ -39,11 +39,11 @@ public class LikeProductController {
     }
     @PostMapping("/products/pUnlike/{id}")
     @CrossOrigin
-    public String  pUlike(@RequestParam(value = "uid", defaultValue = "-1") int uid,
-                          @RequestParam(value = "pid", defaultValue = "-1") int pid)throws Exception {
-
-        log.info("开始解除喜欢 ");
-    likeProductService.delete(uid,pid);
+    public String  pUlike(@PathVariable("id")   int pid)throws Exception {
+        log.info("开始解除 ");
+        User user =(User) redisTemplate.opsForValue().get("NowUser");
+        log.info("获取到的user ::"+user.toString());
+        likeProductService.delete(user.getId(),pid);
         return  null;
     }
 }

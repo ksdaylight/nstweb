@@ -2,12 +2,16 @@ package edu.ymw.web;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ForePageController {
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping(value="/home")
     @CrossOrigin
@@ -55,8 +59,12 @@ public class ForePageController {
     @GetMapping("/forelogout")
     public String logout( ) {
         Subject subject = SecurityUtils.getSubject();
-        if(subject.isAuthenticated())
+        if(subject.isAuthenticated()){
+
             subject.logout();
+            redisTemplate.delete("NowUser");
+        }
+
         return "redirect:home";
     }
 }

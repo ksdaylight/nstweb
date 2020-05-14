@@ -56,18 +56,24 @@
                             }
                             else{
                                 vue.list(0);
+                                $("#ProdutLike"+id).hide();
+                                $("#ProdutUnlike"+id).show();
+
                             }
                         });
                     },
-                    pUnlike:  function (uid,pid) {
+                    pUnlike:  function (id) {
                         window.console.log('开始不喜欢  ');
-                        var url = this.uri+"/pUnlike/"+"?uid="+uid+"&pid="+pid;
+                        var url = this.uri+"/pUnlike/"+id;
                         axios.post(url).then(function(response){
                             if(0!=response.data.length){
                                 alert(response.data);
                             }
                             else{
                                 vue.list(0);
+                                $("#ProdutUnlike"+id).hide();
+                                $("#ProdutLike"+id).show();
+
                             }
                         });
                     }
@@ -166,8 +172,11 @@
                     <div class="col-xs-1"> <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
                     <div class="col-xs-1"></div>
                     <div class="col-xs-1">
-                        <a href="#nowhere"  @click="pLike(bean.id)">
+                        <a href="#nowhere"  @click="pLike(bean.id)" :id="'ProdutLike'+bean.id">
                             <font class="glyphicon glyphicon-heart-empty" size="4" color="black">喜欢</font>
+                        </a>
+                        <a href="#nowhere"  @click="pUnlike(bean.id)" :id="'ProdutUnlike'+bean.id" style="display:none;">
+                            <font class="glyphicon glyphicon-heart" size="4" color="red">喜欢</font>
                         </a>
                     </div>
 

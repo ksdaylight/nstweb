@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -25,6 +27,7 @@ public class LikeProductService {
 
     }
     @CacheEvict(allEntries=true)
+    @Transactional(propagation= Propagation.REQUIRED,rollbackForClassName="Exception")
     public void delete(int userId, int likeId) {
         if (null!=likeProductDao.findByUIdAndLikeId(userId,likeId)){
             likeProductDao.deleteByUIdAndLikeId(userId,likeId);

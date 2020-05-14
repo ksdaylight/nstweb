@@ -17,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -48,13 +50,21 @@ public class Test2 {
 
     }
     @Test
+    @Transactional(propagation= Propagation.REQUIRED,rollbackForClassName="Exception")
     public void test2(){
 //        System.out.println(request.getServletContext().getRealPath("img/template"));
-        LikeProduct likeProduct= likeProductDao.findByUIdAndLikeId(5,7);
-        if (null!=likeProduct){
-            log.info("we\\\\:"+likeProduct.toString());
+//        LikeProduct likeProduct= likeProductDao.findByUIdAndLikeId(5,7);
+//        if (null!=likeProduct){
+//            log.info("we\\\\:"+likeProduct.toString());
+//        }else {
+//            log.info("不存在");
+//        }
+        if (null!=likeProductDao.findByUIdAndLikeId(5,6)){
+            likeProductDao.deleteByUIdAndLikeId(5,6);
+            log.info("删除成功");
         }else {
             log.info("不存在");
+            return;
         }
 
 
