@@ -8,7 +8,7 @@
     <span>hi，欢迎来本站</span>
 
     <span th:if="${null!=session.user}">
-		<a href="login" th:text="${session.user.name}"></a>
+		<a href="login" th:text="${session.user}"></a>
 		<a href="forelogout" >退出</a>
 	</span>
 

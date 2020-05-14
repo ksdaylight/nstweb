@@ -15,8 +15,10 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import org.springframework.context.annotation.Bean;
 import org.springframework.session.data.redis.RedisFlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.web.client.RestTemplate;
 
 import static org.apache.shiro.web.filter.mgt.DefaultFilter.port;
 
@@ -72,5 +74,9 @@ public class UserServiceApplication {
         System.out.printf("即将启动的端口号为%d %n", port);
 
         new SpringApplicationBuilder(UserServiceApplication.class).properties("server.port=" + port).run(args);
+    }
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }

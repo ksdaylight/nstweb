@@ -56,7 +56,7 @@ public class UserController {
         return Result.success();
     }
     @PostMapping("/forelogin")
-    public Object login(@RequestBody User userParam, HttpSession session) {
+    public Object login(@RequestBody User userParam) {
         String name =  userParam.getName();
         name = HtmlUtils.htmlEscape(name);
 
@@ -67,12 +67,13 @@ public class UserController {
             User user = userService.getByName(name);
 //	    	subject.getSession().setAttribute("user", user);
             log.info("开始存入session"+user.toString());
+
 //            session.setAttribute("user", user);
             //还是直接存入redis吧
             redisTemplate.opsForValue().set("NowUser",user);
             log.info("存入的session了user为"+user.toString());
-            log.info("sessionID 为："+session.getId());
-            return Result.success();
+//            log.info("sessionID 为："+session.getId());
+            return Result.loginsuccess(user.getName());
         } catch (AuthenticationException e) {
             String message ="账号密码错误";
             return Result.fail(message);

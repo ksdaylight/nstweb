@@ -19,7 +19,9 @@ public class Result {
 		this.message = message;
 		this.data = data;
 	}
-
+	public static Result loginsuccess(String message) {
+		return new Result(SUCCESS_CODE,message,null);
+	}
 	public static Result success() {
 		return new Result(SUCCESS_CODE,null,null);
 	}

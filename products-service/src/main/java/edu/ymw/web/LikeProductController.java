@@ -20,10 +20,9 @@ public class LikeProductController {
     private RedisTemplate redisTemplate;
     @PostMapping("/products/pLike/{id}")
     @CrossOrigin
-    public String  pLike(HttpSession session,
-                         @PathVariable("id")  int pid)  throws Exception {
+    public String  pLike(@PathVariable("id")  int pid)  throws Exception {
         log.info("开始喜欢 ");
-        log.info("sessin ID 此处为"+session.getId());
+//        log.info("sessin ID 此处为"+session.getId());
 //        User user =(User)  session.getAttribute("user");
         User user =(User) redisTemplate.opsForValue().get("NowUser");
         log.info("获取到的user ::"+user.toString());
