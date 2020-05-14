@@ -18,31 +18,31 @@ public class LikeProductController {
     LikeProductService likeProductService;
     @Autowired
     private RedisTemplate redisTemplate;
-    @PostMapping("/products/pLike/{id}")
-    @CrossOrigin
-    public String  pLike(@PathVariable("id")  int pid)  throws Exception {
-        log.info("开始喜欢 ");
-//        log.info("sessin ID 此处为"+session.getId());
-//        User user =(User)  session.getAttribute("user");
-        User user =(User) redisTemplate.opsForValue().get("NowUser");
-        log.info("获取到的user ::"+user.toString());
-
-        LikeProduct likeProduct = new LikeProduct();
-        likeProduct.setuId(user.getId());
-        likeProduct.setLikeId(pid);
-        likeProduct.setCreateTime(new Date());
-        likeProductService.add(likeProduct);
-
-        return  null;
-
-    }
-    @PostMapping("/products/pUnlike/{id}")
-    @CrossOrigin
-    public String  pUlike(@PathVariable("id")   int pid)throws Exception {
-        log.info("开始解除 ");
-        User user =(User) redisTemplate.opsForValue().get("NowUser");
-        log.info("获取到的user ::"+user.toString());
-        likeProductService.delete(user.getId(),pid);
-        return  null;
-    }
+//    @PostMapping("/products/pLike/{id}")
+//    @CrossOrigin
+//    public String  pLike(@PathVariable("id")  int pid)  throws Exception {
+//        log.info("开始喜欢 ");
+////        log.info("sessin ID 此处为"+session.getId());
+////        User user =(User)  session.getAttribute("user");
+//        User user =(User) redisTemplate.opsForValue().get("NowUser");
+//        log.info("获取到的user ::"+user.toString());
+//
+//        LikeProduct likeProduct = new LikeProduct();
+//        likeProduct.setuId(user.getId());
+//        likeProduct.setLikeId(pid);
+//        likeProduct.setCreateTime(new Date());
+//        likeProductService.add(likeProduct);
+//
+//        return  null;
+//
+//    }
+//    @PostMapping("/products/pUnlike/{id}")
+//    @CrossOrigin
+//    public String  pUlike(@PathVariable("id")   int pid)throws Exception {
+//        log.info("开始解除 ");
+//        User user =(User) redisTemplate.opsForValue().get("NowUser");
+//        log.info("获取到的user ::"+user.toString());
+//        likeProductService.delete(user.getId(),pid);
+//        return  null;
+//    }
 }

@@ -118,6 +118,13 @@
             if(start!=vue.pagination.number)
                 vue.list(start);
         }
+        //确实是否要屏蔽
+        function checkShieldLink(){
+            var confirmSh = confirm("确认要屏蔽？");
+            if(confirmSh)
+                return true;
+            return false;
+        }
 
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

@@ -9,6 +9,8 @@
         <module name="common" />
         <module name="eureka-server" />
         <module name="products-service" />
+        <module name="report-service" />
+        <module name="reports-service" />
         <module name="user-service" />
         <module name="views-service" />
         <module name="zuul-service" />
@@ -19,6 +21,7 @@
       <module name="eureka-server" target="1.8" />
       <module name="nstweb" target="1.8" />
       <module name="products-service" target="1.8" />
+      <module name="reports-service" target="1.8" />
       <module name="user-service" target="1.8" />
       <module name="views-service" target="1.8" />
       <module name="zuul-service" target="1.8" />

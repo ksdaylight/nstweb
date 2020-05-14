@@ -84,6 +84,22 @@
 
                             }
                         });
+                    },
+                    pShield:  function (id) {
+                        if(!checkShieldLink())
+                            return;
+                        window.console.log('开始屏蔽  ');
+                        var url = this.uri+"/pShield/"+id;
+                        axios.post(url).then(function(response){
+                            if(0!=response.data.length){
+                                alert(response.data);
+                            }
+                            else{
+                                vue.list(0);
+                                $("#ProdutOne"+id).hide();
+
+                            }
+                        });
                     }
 
                 }
@@ -131,81 +147,84 @@
     <template v-for="bean in beans ">
         <tr>
             <hr />
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-3 ">&nbsp;</div>
-                    <div class="col-xs-2 " >
-                        <font size="5" color="blue">{{bean.user.name}}</font>
+            <div :id="'ProdutOne'+bean.id" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-3 ">&nbsp;</div>
+                        <div class="col-xs-2 " >
+                            <font size="5" color="blue">{{bean.user.name}}</font>
+                        </div>
+                        <div class="col-xs-1"><font size="4" >{{bean.title}}</font></div>
+                        <div class="col-xs-1">&nbsp;</div>
+                        <div class="col-xs-1">&nbsp;</div>
+                        <div class="col-xs-1">&nbsp;</div>
+                        <div class="col-xs-2 ">&nbsp;</div>
                     </div>
-                    <div class="col-xs-1"><font size="4" >{{bean.title}}</font></div>
-                    <div class="col-xs-1">&nbsp;</div>
-                    <div class="col-xs-1">&nbsp;</div>
-                    <div class="col-xs-1">&nbsp;</div>
-                    <div class="col-xs-2 ">&nbsp;</div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-2 ">&nbsp;</div>
-                    <div class="col-xs-1">&nbsp;</div>
-                    <div class="col-xs-6" style= "height: 583px" >
-                        <a :href="'img/productFinish/'+bean.id+'.jpg'" :title="'风格化力度：'+bean.scale+'  风格化尺度：'+bean.weight+'  颜色保留：'+bean.colorRetain">
-                            <img id="mainImg" :src="'img/productFinish/'+bean.id+'.jpg'">
-                        </a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2 ">&nbsp;</div>
+                        <div class="col-xs-1">&nbsp;</div>
+                        <div class="col-xs-6" style= "height: 583px" >
+                            <a :href="'img/productFinish/'+bean.id+'.jpg'" :title="'风格化力度：'+bean.scale+'  风格化尺度：'+bean.weight+'  颜色保留：'+bean.colorRetain">
+                                <img id="mainImg" :src="'img/productFinish/'+bean.id+'.jpg'">
+                            </a>
+                        </div>
+                        <div class="col-xs-1">&nbsp;</div>
+                        <div class="col-xs-2 ">&nbsp;</div>
                     </div>
-                    <div class="col-xs-1">&nbsp;</div>
-                    <div class="col-xs-2 ">&nbsp;</div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-2 ">&nbsp;</div>
-                    <div class="col-xs-4 ">
-                        <img  align="right" :src="'img/productSource/'+bean.id+'.jpg'">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2 ">&nbsp;</div>
+                        <div class="col-xs-4 ">
+                            <img  align="right" :src="'img/productSource/'+bean.id+'.jpg'">
+                        </div>
+                        <div class="col-xs-4 ">
+                            <img  align="left" :src="'img/template/'+bean.template.id+'.jpg'">
+                        </div>
+                        <div class="col-xs-2 ">&nbsp;</div>
                     </div>
-                    <div class="col-xs-4 ">
-                        <img  align="left" :src="'img/template/'+bean.template.id+'.jpg'">
-                    </div>
-                    <div class="col-xs-2 ">&nbsp;</div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-2 ">
-                        &nbsp;
-                    </div>
-                    <div class="col-xs-1">
-                        <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看评论</button>
-                    </div>
-                    <div class="col-xs-1"> <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1">
-                        <a href="#nowhere"  @click="pLike(bean.id)" :id="'ProdutLike'+bean.id">
-                            <font class="glyphicon glyphicon-heart-empty" size="4" color="black">喜欢</font>
-                        </a>
-                        <a href="#nowhere"  @click="pUnlike(bean.id)" :id="'ProdutUnlike'+bean.id" style="display:none;">
-                            <font class="glyphicon glyphicon-heart" size="4" color="red">喜欢</font>
-                        </a>
-                    </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2 ">
+                            &nbsp;
+                        </div>
+                        <div class="col-xs-1">
+                            <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看评论</button>
+                        </div>
+                        <div class="col-xs-1"> <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1">
+                            <a href="#nowhere"  @click="pLike(bean.id)" :id="'ProdutLike'+bean.id">
+                                <font class="glyphicon glyphicon-heart-empty" size="4" color="black">喜欢</font>
+                            </a>
+                            <a href="#nowhere"  @click="pUnlike(bean.id)" :id="'ProdutUnlike'+bean.id" style="display:none;">
+                                <font class="glyphicon glyphicon-heart" size="4" color="red">喜欢</font>
+                            </a>
+                        </div>
 
-                    <div class="col-xs-2">
-                        <a href="#nowhere">
-                            <font class="glyphicon glyphicon-play" size="4" color="bul">以此风格渲染</font>
-                        </a>
+                        <div class="col-xs-2">
+                            <a href="#nowhere">
+                                <font class="glyphicon glyphicon-play" size="4" color="bul">以此风格渲染</font>
+                            </a>
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="button" class="btn btn-warning btn-xs" @click="pShield(bean.id)">
+                                <font class="glyphicon glyphicon-remove" size="3" color="black">屏蔽</font>
+                            </button>
+                        </div>
+                        <div class="col-xs-1">
+                            <a href="#nowhere">
+                                <font class="glyphicon glyphicon-exclamation-sign" size="4" color="black">举报</font>
+                            </a>
+                        </div>
+                        <div class="col-xs-2 ">&nbsp;</div>
                     </div>
-                    <div class="col-xs-1">
-                        <button type="button" class="btn btn-warning btn-xs">
-                            <font class="glyphicon glyphicon-remove" size="3" color="black">屏蔽</font>
-                        </button>
-                    </div>
-                    <div class="col-xs-1">
-                        <a href="#nowhere">
-                            <font class="glyphicon glyphicon-exclamation-sign" size="4" color="black">举报</font>
-                        </a>
-                    </div>
-                    <div class="col-xs-2 ">&nbsp;</div>
                 </div>
             </div>
+
         </tr>
     </template>
 </div>

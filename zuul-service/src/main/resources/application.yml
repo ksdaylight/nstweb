@@ -19,3 +19,7 @@ zuul:
           path: /api-user/**
           serviceId: user-service
           sensitiveHeaders: "*"
+    api-d:
+              path: /api-reports/**
+              serviceId: reports-service
+              sensitiveHeaders: "*"

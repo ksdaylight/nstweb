@@ -1,9 +1,11 @@
 package edu.ymw.web;
-import edu.ymw.pojo.Product;
-import edu.ymw.pojo.Template;
+import edu.ymw.pojo.*;
+import edu.ymw.service.LikeProductService;
 import edu.ymw.service.ProductService;
+import edu.ymw.service.ShieldService;
 import edu.ymw.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,13 @@ public class ProductController {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TemplateController.class);
     @Autowired
     ProductService productService;
+    @Autowired
+    LikeProductService likeProductService;
+
+    @Autowired
+    ShieldService shieldService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping("/products")
     @CrossOrigin
@@ -40,6 +49,45 @@ public class ProductController {
         product.setStatus(1);
         log.info("当前更新为： "+product.toString());
         productService.update(product);
+        return  null;
+    }
+    @PostMapping("/products/pLike/{id}")
+    @CrossOrigin
+    public String  pLike(@PathVariable("id")  int pid)  throws Exception {
+        log.info("开始喜欢 ");
+//        log.info("sessin ID 此处为"+session.getId());
+//        User user =(User)  session.getAttribute("user");
+        User user =(User) redisTemplate.opsForValue().get("NowUser");
+        log.info("获取到的user ::"+user.toString());
+
+        LikeProduct likeProduct = new LikeProduct();
+        likeProduct.setuId(user.getId());
+        likeProduct.setLikeId(pid);
+        likeProduct.setCreateTime(new Date());
+        likeProductService.add(likeProduct);
+
+        return  null;
+
+    }
+    @PostMapping("/products/pUnlike/{id}")
+    @CrossOrigin
+    public String  pUlike(@PathVariable("id")   int pid)throws Exception {
+        log.info("开始解除 ");
+        User user =(User) redisTemplate.opsForValue().get("NowUser");
+        log.info("获取到的user ::"+user.toString());
+        likeProductService.delete(user.getId(),pid);
+        return  null;
+    }
+    @PostMapping("/products/pShield/{id}")
+    @CrossOrigin
+    public String pShield(@PathVariable("id")   int pid)throws Exception {
+        log.info("开始屏蔽 ");
+        User user =(User) redisTemplate.opsForValue().get("NowUser");
+        Shield shield = new Shield();
+        shield.setuId(user.getId());
+        shield.setpId(pid);
+        shieldService.add(shield);
+        log.info("屏蔽加入成功");
         return  null;
     }
 }

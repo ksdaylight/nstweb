@@ -1,0 +1,20 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: reports-service
+  datasource:
+            driver-class-name: com.mysql.jdbc.Driver
+            password: 123456
+            url: jdbc:mysql://127.0.0.1:3306/nstweb?characterEncoding=UTF-8
+            username: root
+            multipart:
+                maxFileSize: 100Mb
+                maxRequestSize: 100Mb
+            hibernate:
+                ddl-auto: none
+                naming:
+                    physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+                show-sql: true
