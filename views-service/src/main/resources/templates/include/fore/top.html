@@ -8,9 +8,9 @@
     <span>hi，欢迎来本站</span>
 
     <!--<span th:if="${null!=nowuser}">-->
-		<!--<a href="login" th:text="${nowuser.name}"></a>-->
-		<!--<a href="forelogout" >退出</a>-->
-	<!--</span>-->
+    <!--<a href="login" th:text="${nowuser.name}"></a>-->
+    <!--<a href="forelogout" >退出</a>-->
+    <!--</span>-->
     <!--<span v-if="nowUser!== undefined && **">-->
     <span v-if="nowUser.name.length > 0">
 		<a href="login" >{{nowUser.name}}</a>
@@ -21,7 +21,6 @@
 		<a href="login">请登录</a>
 		<a href="register">免费注册</a>
 	</span>
-
 
     <span class="pull-right">
 			<a href="#t">我的主页</a>

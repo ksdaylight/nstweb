@@ -1,11 +1,11 @@
-
 <div th:fragment="html">
     <script>
         $(function(){
             var data4Vue = {
                 uri:'http://127.0.0.1:8031/api-user/foreregister',
                 result: [],
-                user:{name:'', password:'', repeatpassword:''}
+                user:{name:'', password:'', repeatpassword:''},
+                nowUser: {id: 0, name: ''},
             };
             //ViewModel
             var vue = new Vue({
@@ -64,12 +64,12 @@
 
         <table class="registerTable" align="center">
             <tr>
-                <td  class="registerTip registerTableLeftTD">设置会员名</td>
+                <td  class="registerTip registerTableLeftTD">设置用户名</td>
                 <td></td>
             </tr>
             <tr>
                 <td class="registerTableLeftTD">登陆名</td>
-                <td  class="registerTableRightTD"><input v-model="user.name" placeholder="会员名一旦设置成功，无法修改" > </td>
+                <td  class="registerTableRightTD"><input v-model="user.name" placeholder="用户名一旦设置成功，无法修改" > </td>
             </tr>
             <tr>
                 <td  class="registerTip registerTableLeftTD">设置登陆密码</td>

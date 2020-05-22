@@ -22,11 +22,11 @@ public class ForePageController {
     public String home(){
         return "fore/home";
     }
-//    @GetMapping(value="/home")
-//    @CrossOrigin
-//    public String home(){
-//        return "fore/home2";
-//    }
+    @GetMapping(value="/home2")
+    @CrossOrigin
+    public String home2(){
+        return "fore/home2";
+    }
 
     @GetMapping(value="/Mypage")
     @CrossOrigin

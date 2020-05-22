@@ -90,4 +90,10 @@ public class ProductController {
         log.info("屏蔽加入成功");
         return  null;
     }
+    @GetMapping("/getOne/{id}")
+    @CrossOrigin
+    public Product getOne(@PathVariable("id")   int id)throws Exception {
+        Product product = productService.get(id);
+        return product;
+    }
 }

@@ -100,6 +100,23 @@
 
                             }
                         });
+                    },
+                    pReport:  function (id) {
+                        if(!checkReprrtLink())
+                            return;
+                        window.console.log('开始举报  ');
+                        var url = "http://127.0.0.1:8031/api-reports/add/"+id;
+                        axios.post(url).then(function(response){
+                            var result = response.data;
+                            if(result.code==0){
+                                window.console.log('举报成功  ');
+                                alert("举报成功");
+                            }
+                            else{
+                                window.console.log('出错了');
+
+                            }
+                        });
                     }
 
                 }
@@ -216,7 +233,7 @@
                             </button>
                         </div>
                         <div class="col-xs-1">
-                            <a href="#nowhere">
+                            <a href="#nowhere" @click="pReport(bean.id)">
                                 <font class="glyphicon glyphicon-exclamation-sign" size="4" color="black">举报</font>
                             </a>
                         </div>
