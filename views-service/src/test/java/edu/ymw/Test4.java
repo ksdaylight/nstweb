@@ -33,9 +33,15 @@ public class Test4 {
             "api-user",
             "api-reports"
     };
+    String[] zuulApiSub = new String[]{
+            "product",
+            "0.0"
+    };
     @Test
     public void test5(){
-        String uri = "/api-views/home/5555";
+//        String uri = "/api-views/home/5555";
+//        String uri = "/api-products/product/pShield/5555";
+        String uri = "/api-products/product/5555";
         log.info("uri+"+uri);
         for (String contextPath: zuulApi ) {
             log.info("uri:"+uri);
@@ -44,6 +50,22 @@ public class Test4 {
             log.info("conteext:"+contextPath);
             String page = uri;
             log.info("page:"+page);
+        }
+        int cnt = 0;
+        int offset = 0;
+        while((offset = uri.indexOf("/", offset)) != -1){
+            offset = offset + "/".length();
+            cnt++;
+        }
+        if(cnt>1){
+            for (String contextPathSub: zuulApiSub ) {
+                log.info("uri:"+uri);
+                uri = StringUtils.remove(uri, contextPathSub+"/");
+
+                log.info("conteextSub:"+contextPathSub);
+                String page = uri;
+                log.info("page:"+page);
+            }
         }
         int i = uri.indexOf("/");//首先获取字符的位置
         uri = uri.substring(0,i);

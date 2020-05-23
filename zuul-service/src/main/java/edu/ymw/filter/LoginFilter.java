@@ -35,6 +35,10 @@ public class LoginFilter extends ZuulFilter{
             "api-user",
             "api-reports"
     };
+    String[] zuulApiSub = new String[]{
+            "products",
+            "0.0"
+    };
 
     //网关的过滤器如何编写
     //过滤类型 pre 表示在请求之前进行执行
@@ -72,13 +76,33 @@ public class LoginFilter extends ZuulFilter{
 
         String uri = request.getRequestURI();
         log.info("uri+"+uri);
+        //去除zuul
         for (String contextPath: zuulApi ) {
-//            log.info("uri:"+uri);
+            log.info("uri:"+uri);
             uri = StringUtils.remove(uri, "/"+contextPath+"/");
-//            log.info("conteext:"+contextPath);
+            log.info("conteext:"+contextPath);
             String page = uri;
-//            log.info("page:"+page);
+            log.info("page:"+page);
         }
+        //检查剩余的“/”个数
+        int cnt = 0;
+        int offset = 0;
+        while((offset = uri.indexOf("/", offset)) != -1){
+            offset = offset + "/".length();
+            cnt++;
+        }
+        //大于的为二级uri（暂没设置三级），再去掉一部分uri
+        if(cnt>1){
+            for (String contextPathSub: zuulApiSub ) {
+                log.info("uri:"+uri);
+                uri = StringUtils.remove(uri, contextPathSub+"/");
+
+                log.info("conteextSub:"+contextPathSub);
+                String page = uri;
+                log.info("page:"+page);
+            }
+        }
+        //去掉剩余uri的尾部
         int i = uri.indexOf("/");//首先获取字符的位置
         if(i>0){
             uri = uri.substring(0,i);
