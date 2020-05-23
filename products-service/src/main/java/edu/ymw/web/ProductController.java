@@ -65,7 +65,7 @@ public class ProductController {
         likeProduct.setLikeId(pid);
         likeProduct.setCreateTime(new Date());
         likeProductService.add(likeProduct);
-
+        log.info("喜欢成功 ::");
         return  null;
 
     }
