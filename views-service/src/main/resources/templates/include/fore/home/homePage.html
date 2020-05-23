@@ -105,9 +105,10 @@
                         if(!checkReprrtLink())
                             return;
                         window.console.log('开始举报  ');
-                        var url = "http://127.0.0.1:8031/api-reports/add/"+id;
+                        var url = "http://127.0.0.1:8031/api-reports/addOneProductReport/"+id;
                         axios.post(url).then(function(response){
                             var result = response.data;
+
                             if(result.code==0){
                                 window.console.log('举报成功  ');
                                 alert("举报成功");
@@ -116,6 +117,20 @@
                                 window.console.log('出错了');
 
                             }
+                        })
+                            .catch(function (error) {
+                            window.console.log('Error :'+ error);
+                                //
+                                var jsonObject = error;
+                                var jsonString = JSON.stringify(jsonObject);
+
+                                window.console.log('数据为 '+jsonString);
+                                if(error.response.status == 401){
+                                    window.console.log('权限不足导致的  ');
+//                                    alert("权限不足，去登录");
+                                    location.href="http://127.0.0.1:8031/api-views/login";
+                                }
+                                //
                         });
                     }
 

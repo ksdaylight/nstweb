@@ -23,12 +23,12 @@ public class ReportController {
     RestTemplate restTemplate;
     @Autowired
     private RedisTemplate redisTemplate;
-    @PostMapping("/add/{id}")
+    @PostMapping("/addOneProductReport/{id}")
     @CrossOrigin
     public Object addProduct(@PathVariable("id") int id) throws Exception {
 
         User fromUser =(User) redisTemplate.opsForValue().get("NowUser");
-        log.info("获取到的user ::"+fromUser.toString());
+        if(fromUser!=null) log.info("获取到的user ::"+fromUser.toString());
         Product product = restTemplate.getForObject("http://127.0.0.1:8031/api-products/getOne/"+ id,Product.class);
         log.info("获取到的product ::"+product.toString());
         Report report = new Report();

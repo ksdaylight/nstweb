@@ -3,6 +3,7 @@ package edu.ymw;
 import edu.ymw.Dao.UserDao;
 import edu.ymw.pojo.User;
 import edu.ymw.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,34 @@ public class Test4 {
     UserDao userDao;
     @Autowired
     private UserService userService;
+    String[] requireAuthPages = new String[]{
+            "buy",
+
+            "foredoreview"
+
+    };
+    String[] zuulApi = new String[]{
+            "api-products",
+            "api-views",
+            "api-user",
+            "api-reports"
+    };
+    @Test
+    public void test5(){
+        String uri = "/api-views/home/5555";
+        log.info("uri+"+uri);
+        for (String contextPath: zuulApi ) {
+            log.info("uri:"+uri);
+            uri = StringUtils.remove(uri, "/"+contextPath+"/");
+
+            log.info("conteext:"+contextPath);
+            String page = uri;
+            log.info("page:"+page);
+        }
+        int i = uri.indexOf("/");//首先获取字符的位置
+        uri = uri.substring(0,i);
+        log.info("NoWuri+"+uri);
+    }
     @Test
     public void test2(){
         String userName = "admin";

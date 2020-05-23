@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -56,6 +57,8 @@ public class ForePageController {
     public String registerSuccess(){
         return "fore/registerSuccess";
     }
+
+    //无奈改为post,zuul转发貌似不支持改method
     @GetMapping(value="/login")
     public String login(){
         return "fore/login";
@@ -73,7 +76,7 @@ public class ForePageController {
         }
         redisTemplate.delete("NowUser");
         log.info("跳转");
-        return "redirect:home";
+        return "redirect:http://127.0.0.1:8031/api-views/home";
     }
 
 
