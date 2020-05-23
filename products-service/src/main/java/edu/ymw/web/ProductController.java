@@ -3,13 +3,15 @@ import edu.ymw.pojo.*;
 import edu.ymw.service.LikeProductService;
 import edu.ymw.service.ProductService;
 import edu.ymw.service.ShieldService;
+import edu.ymw.util.Const;
 import edu.ymw.util.Page4Navigator;
+import edu.ymw.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.*;
 
 @RestController
 public class ProductController {
@@ -27,11 +29,33 @@ public class ProductController {
     @GetMapping("/products")
     @CrossOrigin
     //请求跨域
-    public Page4Navigator<Product> list(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size) throws Exception {
+    public Object list(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size) throws Exception {
         log.info("当前size为： "+size);
         start = start<0?0:start;
-        Page4Navigator<Product> page =productService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
-        return page;
+
+        User user =(User) redisTemplate.opsForValue().get("NowUser");
+        Map<String,Object> map = new HashMap<>();
+        Page4Navigator<Product> page= new Page4Navigator<Product>();
+        int type = Const.FofVistor;
+        List<LikeProduct> userLike =new ArrayList<>();
+        List<Shield> userShile = new ArrayList<>();
+
+        if(user!= null){
+            page =productService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
+            type= Const.ForUser;
+            userLike = likeProductService.userList(user.getId());
+            userShile = shieldService.userList(user.getId());
+        }
+        else{
+           page =productService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
+            type=Const.FofVistor;
+
+        }
+        map.put("page", page);
+        map.put("type", type);
+        map.put("userlike", userLike);
+        map.put("usershile",  userShile);
+        return Result.success(map);
     }
     @PostMapping("/products/pBanned/{id}")
     @CrossOrigin

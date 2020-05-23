@@ -2,6 +2,7 @@ package edu.ymw.service;
 import edu.ymw.dao.ProductDao;
 import edu.ymw.pojo.Product;
 import edu.ymw.pojo.Template;
+import edu.ymw.pojo.User;
 import edu.ymw.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -43,4 +44,12 @@ public class ProductService {
 
         return new Page4Navigator<>(pageFromJPA,navigatePages);
     }
+//    @Cacheable(key="'userProducts-page-'+#p0+ '-' + #p1+ '-' +#p2")
+//    public Page4Navigator<Product> userList(int start, int size, int navigatePages, User user) {
+//
+//        Sort sort = new Sort(Sort.Direction.DESC, "id");
+//        Pageable pageable = new PageRequest(start, size,sort);
+//        Page pageFromJPA = productDao.findAll(pageable);
+//        return new Page4Navigator<>(pageFromJPA,navigatePages);
+//    }
 }

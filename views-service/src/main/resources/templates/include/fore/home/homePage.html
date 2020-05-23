@@ -9,7 +9,12 @@
                 pagination:{},
                 file: null,
                 nowUser: {id: 0, name: ''},
-                size: 5
+                size: 5,
+                type:0,
+                uLikes:[],
+                uLike:{id:0,uId:0,likeId:0},
+                uShields:[],
+                uShield:{id:0,uId:0,pId:0}
             };
 
             //ViewModel
@@ -18,6 +23,23 @@
                 data: data4Vue,
                 mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
                     this.list(0);
+                    window.console.log("这里是位置1");
+                },
+                watch: {
+
+                    analysisRank: function () {
+
+                        var _this = this;
+
+                        _this.$nextTick(function () {
+                            window.console.log("这里是位置3");
+                            $("#ProdutOne7").hide();
+                            $("#ShieldProdutOne7" ).show();
+
+                        });
+
+                    }
+
                 },
                 methods: {
 
@@ -26,8 +48,17 @@
                         window.console.log("产品列表开始加载数据");
                         axios.get(url).then(function(response) {
                             vue.pagination = response.data;
-                            vue.beans = response.data.content;
+                            vue.beans = response.data.data.page.content;
+                            vue.uLikes =response.data.data.userlike;
+                            window.console.log("uLikes = "+vue.uLikes);
+                            vue.uShields =response.data.data.usershile;
+                            window.console.log("uShields = "+vue.uShields);
+                            vue.type = response.data.data.type;
+                            window.console.log("type = "+vue.type);
                             window.console.log("beans = "+vue.beans);
+                            window.console.log("这里是位置2");
+
+
                         });
                         window.console.log("top列表开始处理");
                         var nameUrl ="http://127.0.0.1:8031/api-user/userName";
@@ -35,6 +66,7 @@
                             vue.nowUser = response.data;//传了整个user
                             window.console.log("Nowusername= "+vue.nowUser.name);
                         });
+
                     },
                     showDetails: function(product){
                         var id = product.id;
@@ -64,8 +96,6 @@
                             }
                             else{
                                 vue.list(0);
-                                $("#ProdutLike"+id).hide();
-                                $("#ProdutUnlike"+id).show();
 
                             }
                         }).catch(function (error) {
@@ -82,6 +112,7 @@
                             }
                             //
                         });
+
                     },
                     pUnlike:  function (id) {
                         window.console.log('开始不喜欢  ');
@@ -92,8 +123,7 @@
                             }
                             else{
                                 vue.list(0);
-                                $("#ProdutUnlike"+id).hide();
-                                $("#ProdutLike"+id).show();
+
 
                             }
                         }).catch(function (error) {
@@ -122,7 +152,9 @@
                             }
                             else{
                                 vue.list(0);
-                                $("#ProdutOne"+id).hide();
+//                                $("#ProdutOne"+id).hide();
+//                                $("#ShieldProdutOne"+id).show();
+
 
                             }
                         }).catch(function (error) {
@@ -170,8 +202,32 @@
                                 }
                                 //
                         });
-                    }
+                    },
+                    showLike:function(id){
+                        var result = false;
+                        vue.uLikes.forEach(function(value,key,arr){
+                            if(value.likeId==id){
+                                window.console.log('在已喜欢的里面'+id);
+                                result =true;
+                            }
+                        })
+                        return result;
+                    },
+                    shieldShow:function (id) {
+                        var result = false;
+                        vue.uShields.forEach(function(value,key,arr){
+                            if(value.pId==id){
+                                window.console.log('被屏蔽id 为'+id);
+                                result =true;
+                            }
 
+                            var jsonString = JSON.stringify(value);
+//                            console.log(jsonString)
+//                            console.log(key)      // 结尾依次为0，1，2
+//                            console.log(arr)
+                        })
+                        return result;
+                    }
                 }
 
             });
@@ -217,7 +273,20 @@
     <template v-for="bean in beans ">
         <tr>
             <hr />
-            <div :id="'ProdutOne'+bean.id" >
+            <div :id="'ShieldProdutOne'+bean.id" v-if = "shieldShow(bean.id)"  >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2 ">&nbsp;</div>
+                        <div class="col-xs-1">&nbsp;</div>
+                        <div class="col-xs-6"  >
+                            <font  size="4" color="gray">已屏蔽的作品</font>
+                        </div>
+                        <div class="col-xs-1">&nbsp;</div>
+                        <div class="col-xs-2 ">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <div :id="'ProdutOne'+bean.id" v-else >
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-3 ">&nbsp;</div>
@@ -267,12 +336,13 @@
                         <div class="col-xs-1"> <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
                         <div class="col-xs-1"></div>
                         <div class="col-xs-1">
-                            <a href="#nowhere"  @click="pLike(bean.id)" :id="'ProdutLike'+bean.id">
-                                <font class="glyphicon glyphicon-heart-empty" size="4" color="black">喜欢</font>
-                            </a>
-                            <a href="#nowhere"  @click="pUnlike(bean.id)" :id="'ProdutUnlike'+bean.id" style="display:none;">
+                            <a href="#nowhere"  @click="pUnlike(bean.id)" :id="'ProdutUnlike'+bean.id"v-if = "showLike(bean.id)">
                                 <font class="glyphicon glyphicon-heart" size="4" color="red">喜欢</font>
                             </a>
+                            <a href="#nowhere"  @click="pLike(bean.id)" :id="'ProdutLike'+bean.id"  v-else>
+                                <font class="glyphicon glyphicon-heart-empty" size="4" color="black"  >喜欢</font>
+                            </a>
+
                         </div>
 
                         <div class="col-xs-2">

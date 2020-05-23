@@ -40,6 +40,12 @@ public class Test2 {
     @Autowired
     private RedisTemplate redisTemplate;
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Test2.class);
+
+    @Test
+    public void test3() {
+
+    }
+
     @Test
     public void test() {
 //        Sort sort = new Sort(Sort.Direction.DESC, "id");

@@ -7,8 +7,11 @@ public class Const {
     public static final int Pbaned = 3;      //作评被禁止
     public static final int Cyes = 1;        //保留颜色
     public static final int Cno= 2;          //不保留颜色
-    public static final int Product = 0;   //举报未处理
-    public static final int Comment = 1;   //举报未处理
+    public static final int Product = 0;   //是举报作品
+    public static final int Comment = 1;   //是举报评论
     public static final int ReportUn = 0;   //举报未处理
     public static final int ReportPr = 1;   //举报已处理
+    public static final int FofVistor = 0;   //给游客
+    public static final int ForUser = 1;   //给用户
+
 }

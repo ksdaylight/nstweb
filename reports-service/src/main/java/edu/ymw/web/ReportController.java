@@ -36,6 +36,7 @@ public class ReportController {
         report.setTargetId(product.getUser().getId());
         report.setEntityId(product.getId());
         report.setEntityType(Const.Product);
+        report.setStatus(Const.ReportUn);
         report.setCreateTime(new Date());
         report.setRemark("");
         reportService.add(report);

@@ -6,9 +6,12 @@ import edu.ymw.pojo.LikeProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -17,6 +20,14 @@ public class LikeProductService {
     @Autowired
     LikeProductDao likeProductDao;
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LikeProductService.class);
+
+    @Cacheable(key="'userLikeProList-'+#p0")
+    public List<LikeProduct> userList(int id){
+        List<LikeProduct> list  = likeProductDao.findByUId(id);
+        return list;
+    }
+
+
     @CacheEvict(allEntries=true)
     public void add(LikeProduct bean) {
         if (null!=likeProductDao.findByUIdAndLikeId(bean.getuId(),bean.getLikeId())){
