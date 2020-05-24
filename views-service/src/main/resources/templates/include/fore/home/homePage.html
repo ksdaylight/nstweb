@@ -10,6 +10,7 @@
                 file: null,
                 nowUser: {id: 0, name: ''},
                 size: 5,
+                sort:3,
                 type:0,
                 uLikes:[],
                 uLike:{id:0,uId:0,likeId:0},
@@ -44,10 +45,18 @@
                 methods: {
 
                     list:function(start){
-                        var url =  this.uri+ "?start="+start+"&size="+this.size;
+                        var url =  this.uri+ "?start="+start+"&size="+this.size+"&sort="+this.sort;
                         window.console.log("产品列表开始加载数据");
                         axios.get(url).then(function(response) {
-                            vue.pagination = response.data;
+                            vue.pagination = response.data.data.page;
+//                            var json2 = JSON.stringify(response.data);
+//                            var jsonString = JSON.stringify(vue.pagination );
+//                            window.console.log("总数据"+json2 );
+//                            window.console.log("pag数据"+jsonString );
+//                            window.console.log("youmeiy数据"+vue.pagination.navigatepageNums);
+////                            vue.pagination.navigatepageNums.forEach(function(value,key,arr) {
+////                                window.console.log("页码数："+value);
+////                            });
                             vue.beans = response.data.data.page.content;
                             vue.uLikes =response.data.data.userlike;
                             window.console.log("uLikes = "+vue.uLikes);
@@ -85,7 +94,12 @@
                     setSize:  function (size) {
                         this.size=size;
                         vue.list(0);
+                    },
+                    setSort:  function (sort) {
+                        this.sort=sort;
+                        vue.list(0);
                     }
+
                     ,
                     pLike:  function (id) {
                         window.console.log('开始喜欢 ')
@@ -250,19 +264,19 @@
             <div class="col-xs-4 ">
                 <font size="5" color="green">排行:</font>
                 &nbsp;&nbsp;&nbsp;
-                <a href="#">
-                    <font size="4" color="blue">日</font>
+                <a href="#" @click="setSort(0)">
+                    <font size="4" color="blue" >日</font>
                 </a>
                 &nbsp;
-                <a href="#">
-                    <font size="4" color="blue">周</font>
+                <a href="#" @click="setSort(1)">
+                    <font size="4" color="blue" >周</font>
                 </a>
                 &nbsp;
-                <a href="#">
+                <a href="#" @click="setSort(2)">
                     <font size="4" color="blue">月</font>
                 </a>
                 &nbsp;
-                <a href="#">
+                <a href="#" @click="setSort(3)">
                     <font size="4" color="blue">总</font>
                 </a>
             </div>

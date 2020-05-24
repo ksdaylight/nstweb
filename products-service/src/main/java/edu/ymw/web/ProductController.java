@@ -29,7 +29,9 @@ public class ProductController {
     @GetMapping("/products")
     @CrossOrigin
     //请求跨域
-    public Object list(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size) throws Exception {
+    public Object list(@RequestParam(value = "start", defaultValue = "0") int start,
+                       @RequestParam(value = "size", defaultValue = "5") int size,
+                       @RequestParam(value = "sort", defaultValue = "3") int sort ) throws Exception {
         log.info("当前size为： "+size);
         start = start<0?0:start;
 
@@ -41,13 +43,13 @@ public class ProductController {
         List<Shield> userShile = new ArrayList<>();
 
         if(user!= null){
-            page =productService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
+            page =productService.list(start, size,sort, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
             type= Const.ForUser;
             userLike = likeProductService.userList(user.getId());
             userShile = shieldService.userList(user.getId());
         }
         else{
-           page =productService.list(start, size, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
+           page =productService.list(start, size, sort,5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
             type=Const.FofVistor;
 
         }
