@@ -97,6 +97,7 @@
                             else{
                                 vue.list(0);
 
+
                             }
                         }).catch(function (error) {
                             window.console.log('Error :'+ error);
@@ -334,7 +335,11 @@
                             <button @click="showDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看评论</button>
                         </div>
                         <div class="col-xs-1"> <button @click="hideDetails(bean)" class="orderPageCheckOrderItems btn btn-primary btn-xs">收起</button></div>
-                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1">
+                            <a :href="'http://service.weibo.com/share/share.php?appkey=NstWeb'+'&title='+'我发现了一个有趣的作品，欢迎来  http:www.xxxx.com/product  查看'">
+                                <font class="glyphicon glyphicon-send" size="4" color="black">分享</font>
+                            </a>
+                        </div>
                         <div class="col-xs-1">
                             <a href="#nowhere"  @click="pUnlike(bean.id)" :id="'ProdutUnlike'+bean.id"v-if = "showLike(bean.id)">
                                 <font class="glyphicon glyphicon-heart" size="4" color="red">喜欢</font>
