@@ -113,8 +113,12 @@ public class ProductService {
             }
         };
         return querySpecifi;
-
-
     }
+    public Page4Navigator<Product> search(String keyword, int start, int size, int navigatePages) {
 
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(start, size, sort);
+        Page<Product> pageFromJPA  =productDao.findByTitleLike("%"+keyword+"%",pageable);
+        return new Page4Navigator<>(pageFromJPA,navigatePages);
+    }
 }

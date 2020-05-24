@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface ProductDao extends JpaRepository<Product,Integer>, JpaSpecificationExecutor<Product> {
     Page<Product> findByUser(User user,Pageable pageable);
     Page<Product> findByTemplate(Template template,Pageable pageable);
-
+    Page<Product> findByTitleLike(String keyword, Pageable pageable);
 }

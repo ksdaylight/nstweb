@@ -78,6 +78,9 @@ public class ForePageController {
         log.info("跳转");
         return "redirect:http://127.0.0.1:8031/api-views/home";
     }
-
+    @GetMapping(value="/search")
+    public String searchResult(){
+        return "fore/search";
+    }
 
 }

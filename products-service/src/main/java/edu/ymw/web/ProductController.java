@@ -59,6 +59,54 @@ public class ProductController {
         map.put("usershile",  userShile);
         return Result.success(map);
     }
+    @GetMapping("/foresearch")
+    @CrossOrigin
+    //请求跨域
+    public Object foreSearch(@RequestParam(value = "start", defaultValue = "0") int start,
+                             @RequestParam(value = "size", defaultValue = "5") int size,
+                             @RequestParam(value = "sort", defaultValue = "3") int sort,
+                             @RequestParam(value = "keyword", defaultValue = "0.0") String keyword ) throws Exception {
+//        log.info("当前size为： "+size);
+        start = start<0?0:start;
+
+        User user =(User) redisTemplate.opsForValue().get("NowUser");
+        Map<String,Object> map = new HashMap<>();
+        Page4Navigator<Product> page= new Page4Navigator<Product>();
+        int type = Const.FofVistor;
+        List<LikeProduct> userLike =new ArrayList<>();
+        List<Shield> userShile = new ArrayList<>();
+
+        if(user!= null){
+            if(null==keyword)
+                keyword = "";
+            log.info("key 为：："+keyword);
+            page= productService.search(keyword,start, size, 5);
+
+//            page =productService.list(start, size,sort, 5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
+            type= Const.ForUser;
+            userLike = likeProductService.userList(user.getId());
+            userShile = shieldService.userList(user.getId());
+
+        }
+        else{
+            if(null==keyword)
+                keyword = "";
+            log.info("key 为：："+keyword);
+            page= productService.search(keyword,start, size, 5);
+
+//            page =productService.list(start, size, sort,5);  //5表示导航分页最多有5个，如 [1,2,3,4,5]
+            type=Const.FofVistor;
+
+        }
+        map.put("page", page);
+        map.put("type", type);
+        map.put("userlike", userLike);
+        map.put("usershile",  userShile);
+        return Result.success(map);
+
+
+    }
+
     @PostMapping("/products/pBanned/{id}")
     @CrossOrigin
     public String  pBanned(@PathVariable("id") int id, HttpServletRequest request)  throws Exception {
