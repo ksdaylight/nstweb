@@ -16,6 +16,8 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 import static org.apache.shiro.web.filter.mgt.DefaultFilter.port;
@@ -23,7 +25,8 @@ import static org.apache.shiro.web.filter.mgt.DefaultFilter.port;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableCaching
-
+@EnableElasticsearchRepositories(basePackages = "edu.ymw.es")
+@EnableJpaRepositories(basePackages = {"edu.ymw.dao", "edu.ymw.pojo"})
 public class ProductsServiceApplication {
     public static void main(String[] args) {
         int port = 0;
@@ -69,7 +72,7 @@ public class ProductsServiceApplication {
 
         }
         System.out.printf("即将启动的端口号为%d %n", port);
-
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         new SpringApplicationBuilder(ProductsServiceApplication.class).properties("server.port=" + port).run(args);
     }
 

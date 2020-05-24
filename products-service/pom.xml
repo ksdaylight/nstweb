@@ -41,6 +41,12 @@
             <artifactId>user-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>2.4.2</version>
+        </dependency>
     </dependencies>
 
     <build>

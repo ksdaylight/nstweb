@@ -5,6 +5,9 @@ eureka:
 spring:
   application:
     name: products-service
+  data:
+        elasticsearch:
+                    cluster-nodes: 127.0.0.1:9300
   datasource:
             driver-class-name: com.mysql.jdbc.Driver
             password: 123456

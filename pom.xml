@@ -68,6 +68,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.0.3.RELEASE</version>
         </dependency>
         <!-- springboot test -->
         <dependency>
@@ -84,6 +85,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <version>1.5.9.RELEASE</version>
         </dependency>
         <!-- 用了 elasticsearch 就要加这么一个，不然要com.sun.jna.Native 错误 -->
         <dependency>
@@ -159,6 +161,7 @@
             <!--<artifactId>spring-boot-starter-security</artifactId>-->
         <!--</dependency>-->
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

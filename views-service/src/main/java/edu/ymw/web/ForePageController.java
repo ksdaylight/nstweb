@@ -79,5 +79,9 @@ public class ForePageController {
         return "redirect:http://127.0.0.1:8031/api-views/home";
     }
 
+    @GetMapping(value="/search")
+    public String searchResult(){
+        return "fore/search";
+    }
 
 }
